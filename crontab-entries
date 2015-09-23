@@ -1,0 +1,2 @@
+0 0 * * * python @CWD@/github.py
+0 0 * * * python @CWD@/jira.py
