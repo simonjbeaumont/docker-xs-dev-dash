@@ -8,10 +8,10 @@ counts and pull-requests respectively. These write to a database in
 a locally-hosted InfluxDB.
 
 ## Installation
-# Install InfluxDB[1] and Grafana[2];
-# Run `./install.sh` to create the contab entries and the InfluxDB database;
-# Import `grafana-dash` to the local instance of Grafana;
-# Profit.
+0. Install InfluxDB[1] and Grafana[2];
+0. Run `./install.sh` to create the contab entries and the InfluxDB database;
+0. Import `grafana-dash` to the local instance of Grafana;
+0. Profit.
 
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
