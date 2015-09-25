@@ -12,7 +12,23 @@ params = [
     "-repo:xapi-project/sm",
     "-repo:xapi-project/blktap",
 ]
-query = "+".join(params)
+additional_repos = [
+    "xenserver/perf-tools",
+    "xenserver/rrdd-plugins",
+    "xenserver/gpumon",
+    "xenserver/xsiostat",
+    "xenserver/xen-api-backports",
+    "xenserver/buildroot",
+    "xenserver/xen-api-libs-specs",
+    "xenserver/xen-api",
+    "xenserver/xenserver-build-env",
+    "xenserver/planex",
+    "xenserver/xs-pull-request-build-scripts",
+    "xenserver/xen-api-libs",
+    "xenserver/filesystem-summarise",
+]
+additional_repo_params = ["repo:" + repo for repo in additional_repos]
+query = "+".join(params + additional_repo_params)
 
 headers = {}
 if 'GH_TOKEN' in os.environ:
@@ -44,10 +60,11 @@ if __name__ == "__main__":
         sys.exit(4)
 
     repos_json = sum([r.json() for r in repo_responses], [])
-    counts = {r['name']: 0 for r in repos_json}
+    counts = {r['full_name']: 0 for r in repos_json}
+    counts.update({r: 0 for r in additional_repos})
     pull_reqs = sum([r.json()['items'] for r in pull_responses], [])
     urls = [pr["html_url"] for pr in pull_reqs]
-    repos = [url.split('/')[4] for url in urls]
+    repos = ['/'.join(url.split('/')[3:5]) for url in urls]
     for repo in repos:
         counts[repo] += 1
 
