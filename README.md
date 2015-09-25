@@ -13,5 +13,16 @@ a locally-hosted InfluxDB.
 0. Import `grafana-dash` to the local instance of Grafana;
 0. Profit.
 
+## Github Authentication
+Github imposes rate-limiting on its API. The limit is significantly higher if
+you autenticate your requests. The Github script supports this. To enable it
+you can add the following line to your crontab so that the token is exported in
+the environment for the Github script:
+
+```diff
++ GH_TOKEN=<gh-token>
+...
+```
+
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
