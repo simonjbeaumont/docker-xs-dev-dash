@@ -3,6 +3,7 @@
 import sys
 import time
 import requests
+from jira import JIRA
 
 queries = {
     "dc_inbox": "R3 Dash: DC Inbox",
@@ -14,12 +15,14 @@ queries = {
     "PAR": "R3 Dash: PAR",
 }
 
+# uses ~/.netrc for credentials
+jira = JIRA({"server": "https://issues.citrite.net"})
+
 counts = {}
 try:
     for (name, filter) in queries.iteritems():
         jql = "filter='%s'" % filter
-        search_uri = "https://issues.citrite.net/rest/api/2/search?fields=key&jql=" + jql
-        response = requests.get(search_uri).json()
+        response = jira.search_issues(jql, fields='key', json_result=True)
         counts[name] = response['total']
 except requests.exceptions.ConnectionError:
     sys.stderr.write("error: Connection to JIRA failed")
