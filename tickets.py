@@ -18,7 +18,6 @@ queries = {
 
 
 def retrieve_counts():
-    # uses ~/.netrc for credentials
     jira = JIRA({"server": "https://issues.citrite.net"})
     counts = {}
     try:
