@@ -22,7 +22,8 @@ counts = {}
 try:
     for (name, filter) in queries.iteritems():
         jql = "filter='%s'" % filter
-        response = jira.search_issues(jql, fields='key', json_result=True)
+        response = jira.search_issues(jql, maxResults=1, fields='key',
+                                      json_result=True)
         counts[name] = response['total']
 except requests.exceptions.ConnectionError:
     sys.stderr.write("error: Connection to JIRA failed")
