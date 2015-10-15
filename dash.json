@@ -1,0 +1,855 @@
+{
+  "id": 2,
+  "title": "Ring3 Info Radiator",
+  "originalTitle": "Ring3 Info Radiator",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "150px",
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 5,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47165",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "null",
+              "groupByTags": [],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Blocker' AND $timeFilter GROUP BY time($interval) fill(null)",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Blocker"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,1,1",
+          "title": "Blocker CA",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 6,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47166",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Critical' AND $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Critical"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,5,15",
+          "title": "Critical CA",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 7,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47167",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Major' AND $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Major"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,20,50",
+          "title": "Major CA",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 8,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47169",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "XOP",
+              "query": "SELECT last(value) FROM \"XOP\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "XOP (BCM)",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 9,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47170",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "SCTX",
+              "query": "SELECT last(value) FROM \"SCTX\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "SCTX",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 11,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47171",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "PAR",
+              "query": "SELECT last(value) FROM \"PAR\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "PAR",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "title": "Numbers"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "150px",
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 12,
+          "interval": ">12h",
+          "links": [
+            {
+              "params": "",
+              "targetBlank": true,
+              "title": "View on Github",
+              "type": "absolute",
+              "url": "https://github.com/pulls?q=user:xapi-project+type:pr+state:open+-repo:xapi-project/sm+-repo:xapi-project/blktap+repo:xenserver/perf-tools+repo:xenserver/rrdd-plugins+repo:xenserver/gpumon+repo:xenserver/xsiostat+repo:xenserver/xen-api-backports+repo:xenserver/buildroot+repo:xenserver/xen-api-libs-specs+repo:xenserver/xen-api+repo:xenserver/xenserver-build-env+repo:xenserver/planex+repo:xenserver/xs-pull-request-build-scripts+repo:xenserver/xen-api-libs+repo:xenserver/filesystem-summarise"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " OPEN PULL REQUESTS",
+          "postfixFontSize": "70%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 6,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "total_open_pull_requests",
+              "query": "SELECT last(value) FROM \"total_open_pull_requests\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,5,10",
+          "title": "PULL REQUESTS",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 10,
+          "interval": null,
+          "links": [
+            {
+              "params": "selectPageId=15507",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/secure/Dashboard.jspa?"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " UNTRIAGED TICKETS",
+          "postfixFontSize": "70%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 6,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "dc_inbox",
+              "query": "SELECT last(value) FROM \"dc_inbox\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "DC INBOX",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "300px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "datasource": null,
+          "decimals": 0,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": 3,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": 10,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": true
+          },
+          "height": "",
+          "hideTimeOverride": false,
+          "id": 3,
+          "interval": ">12h",
+          "leftYAxisLabel": "",
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": true,
+            "hideEmpty": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": false,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 2,
+          "links": [
+            {
+              "targetBlank": true,
+              "title": "View on Github",
+              "type": "absolute",
+              "url": "https://github.com/pulls?q=user:xapi-project+type:pr+state:open+-repo:xapi-project/sm+-repo:xapi-project/blktap+repo:xenserver/perf-tools+repo:xenserver/rrdd-plugins+repo:xenserver/gpumon+repo:xenserver/xsiostat+repo:xenserver/xen-api-backports+repo:xenserver/buildroot+repo:xenserver/xen-api-libs-specs+repo:xenserver/xen-api+repo:xenserver/xenserver-build-env+repo:xenserver/planex+repo:xenserver/xs-pull-request-build-scripts+repo:xenserver/xen-api-libs+repo:xenserver/filesystem-summarise"
+            }
+          ],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "png",
+          "rightYAxisLabel": "",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "$tag_repo",
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "0",
+              "groupByTags": [
+                "repo"
+              ],
+              "measurement": "open_pull_requests",
+              "query": "SELECT last(value) FROM \"open_pull_requests\" WHERE $timeFilter GROUP BY time($interval), \"repo\" fill(0)",
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Open pull requests by repository",
+          "tooltip": {
+            "shared": false,
+            "value_type": "individual"
+          },
+          "transparent": false,
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "showTitle": false,
+      "title": "Pull requests graph"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)",
+            "thresholdLine": true
+          },
+          "id": 4,
+          "interval": ">12h",
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [
+            {
+              "params": "jql=filter%20in%20(47165%2C%2047166%2C%2047167%2C%2047168%2C%2047169%2C%2047170%2C%2047171)",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "png",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "CA ($tag_priority)",
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "",
+              "groupByTags": [
+                "priority"
+              ],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE $timeFilter GROUP BY time($interval), \"priority\"",
+              "rawQuery": false,
+              "tags": []
+            },
+            {
+              "alias": "SCTX",
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "",
+              "groupByTags": [],
+              "measurement": "SCTX",
+              "query": "SELECT last(value) FROM \"SCTX\" WHERE $timeFilter GROUP BY time($interval)",
+              "tags": [],
+              "target": ""
+            },
+            {
+              "alias": "XOP",
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "",
+              "groupByTags": [],
+              "measurement": "XOP",
+              "query": "SELECT last(value) FROM \"XOP\" WHERE $timeFilter GROUP BY time($interval)",
+              "tags": [],
+              "target": ""
+            },
+            {
+              "alias": "PAR",
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "",
+              "groupByTags": [],
+              "measurement": "PAR",
+              "query": "SELECT last(value) FROM \"PAR\" WHERE $timeFilter GROUP BY time($interval)",
+              "tags": [],
+              "target": ""
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Open Bug tickets",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "JIRA tickets graph"
+    }
+  ],
+  "nav": [
+    {
+      "collapse": false,
+      "enable": true,
+      "notice": false,
+      "now": true,
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "type": "timepicker"
+    }
+  ],
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "5s",
+  "schemaVersion": 6,
+  "version": 37,
+  "links": []
+}
