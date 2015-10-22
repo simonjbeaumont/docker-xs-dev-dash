@@ -14,6 +14,7 @@ queries = {
     "SCTX": "R3 Dash: SCTX",
     "XOP": "R3 Dash: XOP",
     "PAR": "R3 Dash: PAR",
+    "Hotlist": "R3 Dash: Hotlist",
 }
 
 
