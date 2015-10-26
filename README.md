@@ -8,6 +8,7 @@ counts and pull-requests respectively. These write to a database in
 a locally-hosted InfluxDB.
 
 ## Installation
+0. Install python-requests library[3];
 0. Install InfluxDB[1] and Grafana[2];
 0. Run `./install.sh` to create the contab entries and the InfluxDB database;
 0. Import `grafana-dash` to the local instance of Grafana;
@@ -26,3 +27,4 @@ the environment for the Github script:
 
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
+[3]: http://docs.python-requests.org/en/latest/
