@@ -11,6 +11,8 @@ queries = {
     "CA,priority=Blocker": "R3 Dash: CA Blocker",
     "CA,priority=Critical": "R3 Dash: CA Critical",
     "CA,priority=Major": "R3 Dash: CA Major",
+    "CA,priority=Minor": "R3 Dash: CA Minor",
+    "CA,priority=Trivial": "R3 Dash: CA Trivial",
     "SCTX": "R3 Dash: SCTX",
     "XOP": "R3 Dash: XOP",
     "PAR": "R3 Dash: PAR",
