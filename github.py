@@ -12,6 +12,7 @@ params = [
     "state:open",
     "-repo:xapi-project/sm",
     "-repo:xapi-project/blktap",
+    "-repo:xapi-project/xapi-storage-datapath-plugins",
 ]
 additional_repos = [
     "xenserver/perf-tools",
