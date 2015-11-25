@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import requests
+import argparse
 
 params = [
     "user:xapi-project",
@@ -48,7 +49,7 @@ def get_all_responses(uri, headers):
     return responses
 
 
-if __name__ == "__main__":
+def retreive_counts():
     try:
         repo_responses = get_all_responses(repos_uri, headers)
         pull_responses = get_all_responses(search_uri, headers)
@@ -58,7 +59,6 @@ if __name__ == "__main__":
     except ValueError:
         sys.stderr.write("error: Response from Github API was not JSON")
         sys.exit(4)
-
     repos_json = sum([r.json() for r in repo_responses], [])
     counts = {r['full_name']: 0 for r in repos_json}
     counts.update({r: 0 for r in additional_repos})
@@ -67,16 +67,38 @@ if __name__ == "__main__":
     repos = ['/'.join(url.split('/')[3:5]) for url in urls]
     for repo in repos:
         counts[repo] += 1
+    return counts
 
+
+def update_db(counts):
     influx_uri = "http://localhost:8086/write?db=inforad"
     tstamp = int(time.time()) * 10**9
     try:
+        total = 0
         for (repo, count) in counts.iteritems():
             data = "open_pull_requests,repo=%s value=%d %d" % (repo, count,
                                                                tstamp)
-            resp = requests.post(influx_uri, data=data)
-        data = "total_open_pull_requests value=%d" % len(pull_reqs)
-        resp = requests.post(influx_uri, data=data)
+            requests.post(influx_uri, data=data)
+            total += count
+        data = "total_open_pull_requests value=%d" % total
+        requests.post(influx_uri, data=data)
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to local influxdb failed")
         sys.exit(5)
+
+
+def parse_args_or_exit(argv=None):
+    parser = argparse.ArgumentParser(
+        description='Add number of open ring3 pull-requests to dashboard DB')
+    parser.add_argument('-n', '--dry-run', action='store_true',
+                        help='Just retrieve and print the counts, then exit')
+    return parser.parse_args(argv)
+
+
+if __name__ == "__main__":
+    args = parse_args_or_exit(sys.argv[1:])
+    counts = retreive_counts()
+    if args.dry_run:
+        print "Retrieved the following counts: %s" % counts
+        exit(0)
+    update_db(counts)
