@@ -22,6 +22,7 @@ additional_repos = [
     "xenserver/xsiostat",
     "xenserver/xen-api-backports",
     "xenserver/buildroot",
+    "xenserver/xen-api-base-specs",
     "xenserver/xen-api-libs-specs",
     "xenserver/xen-api",
     "xenserver/xenserver-build-env",

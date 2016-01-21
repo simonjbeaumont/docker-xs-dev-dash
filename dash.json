@@ -671,7 +671,7 @@
               "targetBlank": true,
               "title": "View on Github",
               "type": "absolute",
-              "url": "https://github.com/pulls?q=user:xapi-project+type:pr+state:open+-repo:xapi-project/sm+-repo:xapi-project/blktap+-repo:xapi-project/xapi-storage-datapath-plugins+-repo:xapi-project/xen-api-sdk+repo:xenserver/perf-tools+repo:xenserver/rrdd-plugins+repo:xenserver/gpumon+repo:xenserver/xsiostat+repo:xenserver/xen-api-backports+repo:xenserver/buildroot+repo:xenserver/xen-api-libs-specs+repo:xenserver/xen-api+repo:xenserver/xenserver-build-env+repo:xenserver/planex+repo:xenserver/xs-pull-request-build-scripts+repo:xenserver/xen-api-libs+repo:xenserver/filesystem-summarise"
+              "url": "https://github.com/pulls?q=user:xapi-project+type:pr+state:open+-repo:xapi-project/sm+-repo:xapi-project/blktap+-repo:xapi-project/xapi-storage-datapath-plugins+-repo:xapi-project/xen-api-sdk+repo:xenserver/perf-tools+repo:xenserver/rrdd-plugins+repo:xenserver/gpumon+repo:xenserver/xsiostat+repo:xenserver/xen-api-backports+repo:xenserver/buildroot+repo:xenserver/xen-api-libs-specs+repo:xenserver/xen-api+repo:xenserver/xenserver-build-env+repo:xenserver/planex+repo:xenserver/xs-pull-request-build-scripts+repo:xenserver/xen-api-libs+repo:xenserver/filesystem-summarise+repo:xenserver/xen-api-base-specs"
             }
           ],
           "maxDataPoints": 100,
@@ -1154,6 +1154,6 @@
   },
   "refresh": "30s",
   "schemaVersion": 6,
-  "version": 56,
+  "version": 57,
   "links": []
 }
