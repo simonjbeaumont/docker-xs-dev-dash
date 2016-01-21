@@ -10,8 +10,11 @@ a locally-hosted InfluxDB.
 ## Installation
 0. Install python-requests library[3];
 0. Install InfluxDB[1] and Grafana[2];
-0. Run `./install.sh` to create the contab entries and the InfluxDB database;
-0. Import `grafana-dash` to the local instance of Grafana;
+0. Run `./install.sh` to:
+  * Create the InfluxDB database;
+  * Add the cron jobs for obtaining the metrics; and
+  * Updating the configuartion and importing the dashboard to Grafana.
+0. Restart Grafana: `service grafana-server restart`;
 0. Profit.
 
 ## Github Authentication
