@@ -143,7 +143,7 @@
               ]
             }
           ],
-          "thresholds": "0,5,15",
+          "thresholds": "0,5,10",
           "title": "Critical CA",
           "type": "singlestat",
           "valueFontSize": "200%",
@@ -239,11 +239,11 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "id": 8,
+          "id": 14,
           "interval": null,
           "links": [
             {
-              "params": "filter=47169",
+              "params": "filter=47876",
               "targetBlank": true,
               "title": "View on JIRA",
               "type": "absolute",
@@ -274,13 +274,234 @@
               ],
               "fill": "none",
               "groupByTags": [],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Minor' AND $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Minor"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,25,50",
+          "title": "Minor CA",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 15,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47902",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Trivial' AND $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Trivial"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,20,50",
+          "title": "Trivial CA",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 16,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=48477",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Non-bug' AND $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Non-bug"
+                }
+              ]
+            }
+          ],
+          "thresholds": "0,20,50",
+          "title": "Non-bug CA",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "title": "Internal tickets"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "150px",
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 8,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47169",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " XOP",
+          "postfixFontSize": "70%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
               "measurement": "XOP",
               "query": "SELECT last(value) FROM \"XOP\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
               "tags": []
             }
           ],
           "thresholds": "0,1,3",
-          "title": "XOP (BCM)",
+          "title": "XOP",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -318,11 +539,11 @@
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
+          "postfix": " SCTX",
+          "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -383,11 +604,11 @@
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
+          "postfix": " PAR",
+          "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -423,7 +644,7 @@
           "valueName": "current"
         }
       ],
-      "title": "Numbers"
+      "title": "External tickets"
     },
     {
       "collapse": false,
@@ -450,7 +671,7 @@
               "targetBlank": true,
               "title": "View on Github",
               "type": "absolute",
-              "url": "https://github.com/pulls?q=user:xapi-project+type:pr+state:open+-repo:xapi-project/sm+-repo:xapi-project/blktap+repo:xenserver/perf-tools+repo:xenserver/rrdd-plugins+repo:xenserver/gpumon+repo:xenserver/xsiostat+repo:xenserver/xen-api-backports+repo:xenserver/buildroot+repo:xenserver/xen-api-libs-specs+repo:xenserver/xen-api+repo:xenserver/xenserver-build-env+repo:xenserver/planex+repo:xenserver/xs-pull-request-build-scripts+repo:xenserver/xen-api-libs+repo:xenserver/filesystem-summarise"
+              "url": "https://github.com/pulls?q=user:xapi-project+type:pr+state:open+-repo:xapi-project/sm+-repo:xapi-project/blktap+-repo:xapi-project/xapi-storage-datapath-plugins+-repo:xapi-project/xen-api-sdk+repo:xenserver/perf-tools+repo:xenserver/rrdd-plugins+repo:xenserver/gpumon+repo:xenserver/xsiostat+repo:xenserver/xen-api-backports+repo:xenserver/buildroot+repo:xenserver/xen-api-libs-specs+repo:xenserver/xen-api+repo:xenserver/xenserver-build-env+repo:xenserver/planex+repo:xenserver/xs-pull-request-build-scripts+repo:xenserver/xen-api-libs+repo:xenserver/filesystem-summarise"
             }
           ],
           "maxDataPoints": 100,
@@ -460,7 +681,7 @@
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 6,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -525,7 +746,7 @@
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 6,
+          "span": 4,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -559,12 +780,77 @@
             }
           ],
           "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 13,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=47531",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " HOTLIST TICKETS",
+          "postfixFontSize": "70%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "Hotlist",
+              "query": "SELECT last(value) FROM \"Hotlist\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "HOTLIST",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
       ],
-      "title": "New row"
+      "title": "Outstanding tasks"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "editable": true,
       "height": "300px",
       "panels": [
@@ -667,7 +953,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "350px",
       "panels": [
         {
           "aliasColors": {},
@@ -736,9 +1022,27 @@
                 "priority"
               ],
               "measurement": "CA",
-              "query": "SELECT last(value) FROM \"CA\" WHERE $timeFilter GROUP BY time($interval), \"priority\"",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Blocker' OR \"priority\" = 'Critical' OR \"priority\" = 'Major' AND $timeFilter GROUP BY time($interval), \"priority\"",
               "rawQuery": false,
-              "tags": []
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Blocker"
+                },
+                {
+                  "condition": "OR",
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Critical"
+                },
+                {
+                  "condition": "OR",
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Major"
+                }
+              ]
             },
             {
               "alias": "SCTX",
@@ -848,8 +1152,8 @@
   "annotations": {
     "list": []
   },
-  "refresh": "5s",
+  "refresh": "30s",
   "schemaVersion": 6,
-  "version": 37,
+  "version": 56,
   "links": []
 }
