@@ -1,2 +1,2 @@
-* * * * * @USER@ python @CWD@/github.py
-* * * * * @USER@ python @CWD@/jira.py
+* * * * * @USER@ timeout 30 python @CWD@/github.py
+* * * * * @USER@ timeout 30 python @CWD@/jira.py
