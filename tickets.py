@@ -19,6 +19,7 @@ queries = {
     "XOP": "R3 Dash: XOP",
     "PAR": "R3 Dash: PAR",
     "Hotlist": "R3 Dash: Hotlist",
+    "Staging": "R3 Dash: Staging",
 }
 
 
