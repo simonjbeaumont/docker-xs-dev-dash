@@ -943,19 +943,19 @@
           ],
           "cacheTimeout": null,
           "format": "none",
-          "prefix": "LATEST BUILD:",
+          "prefix": "LAST BUILD:",
           "postfix": "",
           "nullText": null,
           "valueMaps": [
             {
               "value": "1",
               "op": "=",
-              "text": "✔ SUCCEEDED"
+              "text": "✔"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "✘ FAILED"
+              "text": "✘"
             }
           ],
           "nullPointMode": "connected",
@@ -1004,19 +1004,19 @@
           ],
           "cacheTimeout": null,
           "format": "none",
-          "prefix": "LATEST BVT:",
+          "prefix": "LAST BVT:",
           "postfix": "",
           "nullText": null,
           "valueMaps": [
             {
               "value": "1",
               "op": "=",
-              "text": "✔ PASSED"
+              "text": "✔"
             },
             {
               "value": "0",
               "op": "=",
-              "text": "✘ FAILED"
+              "text": "✘"
             }
           ],
           "nullPointMode": "connected",
