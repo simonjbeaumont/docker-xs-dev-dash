@@ -920,10 +920,71 @@
         {
           "title": "",
           "error": false,
-          "span": 12,
+          "span": 6,
           "editable": true,
           "type": "singlestat",
           "id": 16,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "tags": [],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "measurement": "build_status",
+              "query": "SELECT last(value) FROM \"build_status\" WHERE $timeFilter GROUP BY time($interval)"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "LATEST BUILD:",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "value": "1",
+              "op": "=",
+              "text": "✔ SUCCEEDED"
+            },
+            {
+              "value": "0",
+              "op": "=",
+              "text": "✘ FAILED"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "100%",
+          "valueFontSize": "100%",
+          "postfixFontSize": "70%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 6,
+          "editable": true,
+          "type": "singlestat",
+          "id": 17,
           "links": [],
           "maxDataPoints": 100,
           "interval": null,
