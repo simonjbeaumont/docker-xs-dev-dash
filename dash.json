@@ -924,7 +924,15 @@
           "editable": true,
           "type": "singlestat",
           "id": 16,
-          "links": [],
+          "links": [
+            {
+              "params": "q_view=summary&q_product=carbon&q_branch=trunk-ring3",
+              "targetBlank": true,
+              "title": "View on Xenbuilder",
+              "type": "absolute",
+              "url": "https://xenbuilder.uk.xensource.com/builds?"
+            }
+          ],
           "maxDataPoints": 100,
           "interval": null,
           "targets": [
@@ -985,7 +993,15 @@
           "editable": true,
           "type": "singlestat",
           "id": 17,
-          "links": [],
+          "links": [
+            {
+              "params": "q_view=summary&q_product=carbon&q_branch=trunk-ring3",
+              "targetBlank": true,
+              "title": "View on Xenbuilder",
+              "type": "absolute",
+              "url": "https://xenbuilder.uk.xensource.com/builds?"
+            }
+          ],
           "maxDataPoints": 100,
           "interval": null,
           "targets": [
