@@ -4,12 +4,14 @@ RUN dnf update -qy
 
 # InfluxDB
 RUN dnf install -qy https://s3.amazonaws.com/influxdb/influxdb-0.9.4-1.x86_64.rpm
-RUN /opt/influxdb/influx -execute 'create database inforad' || true
+ADD ./influxdb/init.sh /init-influxdb.sh
+RUN bash /init-influxdb.sh
 
 # Grafana
 RUN dnf install -qy https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x86_64.rpm
-ADD ./grafana/config.js /usr/share/grafana/config.js
 ADD ./grafana/grafana.ini /etc/grafana/grafana.conf
+ADD ./grafana/init.sh /init-grafana.sh
+RUN bash /init-grafana.sh
 
 # nginx
 RUN dnf install -qy nginx
