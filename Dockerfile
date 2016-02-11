@@ -9,9 +9,9 @@ RUN bash /init-influxdb.sh
 
 # Grafana
 RUN dnf install -qy https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x86_64.rpm
-ADD ./grafana/grafana.ini /etc/grafana/grafana.ini
 ADD ./grafana/init.sh /init-grafana.sh
 RUN bash /init-grafana.sh
+ADD ./grafana/grafana.ini /etc/grafana/grafana.ini
 
 # nginx
 RUN dnf install -qy nginx
