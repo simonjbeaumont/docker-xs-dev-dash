@@ -1,4 +1,5 @@
 FROM fedora:23
+MAINTAINER Si Beaumont <simon.beaumont@citrix.com>
 
 RUN dnf update -qy
 
