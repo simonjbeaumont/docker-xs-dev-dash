@@ -31,8 +31,8 @@ ADD ./crontab-entries /etc/cron.d/data-scripts
 # import grafana dashboard
 ADD ./grafana/dash.json /var/lib/grafana/dashboards/dash.json
 
-# Expose ports for nginx, grafana, influxdb
-EXPOSE 80 3000 8083 8086
+# Expose ports for nginx and grafana
+EXPOSE 80 3000
 
 # Run
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.d/supervisord.conf"]
