@@ -22,6 +22,12 @@ ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
 RUN dnf install -qy supervisor
 ADD ./supervisord.conf /etc/supervisord.d/supervisord.conf
 
+# scripts to generate data
+RUN dnf install -qy cronie
+RUN pip install -q requests jira
+ADD ./scripts/* /scripts/
+ADD ./crontab-entries /etc/cron.d/data-scripts
+
 # Expose ports for nginx, grafana, influxdb
 EXPOSE 80 3000 8083 8086
 
