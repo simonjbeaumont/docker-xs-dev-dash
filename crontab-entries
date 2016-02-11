@@ -1,3 +1,3 @@
-* * * * * @USER@ timeout 30 python @CWD@/github.py
-* * * * * @USER@ timeout 30 python @CWD@/tickets.py
-* * * * * @USER@ timeout 30 python @CWD@/bvt.py
+* * * * * @USER@ timeout 30 python @CWD@/scripts/github.py
+* * * * * @USER@ timeout 30 python @CWD@/scripts/tickets.py
+* * * * * @USER@ timeout 30 python @CWD@/scripts/bvt.py
