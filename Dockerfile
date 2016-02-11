@@ -12,6 +12,7 @@ RUN dnf install -qy https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x
 ADD ./grafana/init.sh /init-grafana.sh
 RUN bash /init-grafana.sh
 ADD ./grafana/grafana.ini /etc/grafana/grafana.ini
+ADD ./grafana/dash.json /var/lib/grafana/dashboards/dash.json
 
 # nginx
 RUN dnf install -qy nginx
