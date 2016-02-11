@@ -26,6 +26,7 @@ ADD ./supervisord.conf /etc/supervisord.d/supervisord.conf
 RUN dnf install -qy cronie
 RUN pip install -q requests jira
 ADD ./scripts/* /scripts/
+ADD ./.gh-token /scripts/gh-token
 ADD ./crontab-entries /etc/cron.d/data-scripts
 
 # import grafana dashboard

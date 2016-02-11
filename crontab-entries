@@ -1,3 +1,4 @@
+GH_TOKEN=$(cat /scripts/gh-token)
 * * * * * root timeout 30 python /scripts/github.py
 * * * * * root timeout 30 python /scripts/tickets.py
 * * * * * root timeout 30 python /scripts/bvt.py
