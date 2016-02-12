@@ -35,5 +35,7 @@ ADD ./grafana/dash.json /var/lib/grafana/dashboards/dash.json
 # Expose ports for nginx and grafana
 EXPOSE 80 3000
 
+VOLUME /var/opt/influxdb/
+
 # Run
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.d/supervisord.conf"]
