@@ -3,23 +3,20 @@ DATA_CON=$(IMG_NAME)-data
 PORTS=-p 80:80 -p 3000:3000
 VOLUMES=--volumes-from $(DATA_CON)
 
-build: .build-done
-
-.build-done: .
+build: .
 	docker build -t $(IMG_NAME) .
-	@docker inspect -f '{{.Id}}' $(IMG_NAME) > .build-done
 
 clean:
-	@rm -f .build-done
+	docker rmi $(IMG_NAME)
 
 run: build data
 	docker run --rm -ti $(VOLUMES) $(PORTS) $(IMG_NAME)
 
-shell: build
+shell: build data
 	docker run --rm -ti $(VOLUMES) $(PORTS) $(IMG_NAME) /bin/bash
 
 data: build
-	docker run --name=$(DATA_CON) -ti $(IMG_NAME) true
+	docker run --name=$(DATA_CON) -ti $(IMG_NAME) true || true
 
 purge:
 	@read -n1 -r -p "This will remove all persistent data. Are you sure? " ;\
