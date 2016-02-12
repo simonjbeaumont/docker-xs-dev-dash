@@ -33,8 +33,8 @@ ADD ./crontab-entries /etc/cron.d/data-scripts
 # import grafana dashboard
 ADD ./grafana/dash.json /var/lib/grafana/dashboards/dash.json
 
-# expose ports for nginx and grafana
-EXPOSE 80 3000
+# expose ports for nginx (grafana)
+EXPOSE 80
 
 # expose influxdb data for creating a data volume container
 VOLUME /var/opt/influxdb/
