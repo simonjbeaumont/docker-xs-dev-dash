@@ -50,6 +50,13 @@ make shell
 This will drop you into the container with none of the services running. If you
 want them running you can execute `supervisord` as in the Dockerfile.
 
+## Customisation for other teams
+Most of the scripts to gather data have all of their parameters at the top.
+E.g. `tickets.py` speifies a dictionary at the top of the file of JIRA filter
+names to gather information for. To track different metrics, just edit these
+scripts and run `make run` (you may want to get rid of the old data using `make
+purge`).
+
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
 [3]: https://docker.com
