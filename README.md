@@ -48,7 +48,8 @@ make shell
 ```
 
 This will drop you into the container with none of the services running. If you
-want them running you can execute `supervisord` as in the Dockerfile.
+want them running you can execute `supervisord` as in the Dockerfile. It also
+mounts the repo inside the container.
 
 ## Customisation for other teams
 Most of the scripts to gather data have all of their parameters at the top.
@@ -56,6 +57,14 @@ E.g. `tickets.py` speifies a dictionary at the top of the file of JIRA filter
 names to gather information for. To track different metrics, just edit these
 scripts and run `make run` (you may want to get rid of the old data using `make
 purge`).
+
+## Importing old data
+If you have some InfluxDB data to import then then you can use `make shell`
+which mounts the current directory inside the container. This allows you to
+place your data in the directory alongside the Makefile and from within the
+container move whatever you need into `/var/opt/influxdb` which is the volume
+exposed by the data volume container. **Note:** this should be done with no
+other containers accessing the data volume container to avoid any corruption.
 
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
