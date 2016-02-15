@@ -1,7 +1,7 @@
 IMG_NAME=ring3-dash
 DATA_CON=$(IMG_NAME)-data
 PORTS=-p 80:80
-VOLUMES=--volumes-from $(DATA_CON)
+VOLUMES=--volumes-from $(DATA_CON) -v /etc/localtime:/etc/localtime:ro
 DEV_VOL=-v $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/host
 
 build: .
