@@ -17,7 +17,7 @@ shell: build data
 	docker run --rm -ti $(VOLUMES) $(PORTS) $(DEV_VOL) $(IMG_NAME) /bin/bash
 
 data: build
-	docker run --name=$(DATA_CON) -ti $(IMG_NAME) true || true
+	docker run --name=$(DATA_CON) -ti $(IMG_NAME) true 2>/dev/null || true
 
 purge:
 	@read -n1 -r -p "This will remove all persistent data. Are you sure? " ;\
