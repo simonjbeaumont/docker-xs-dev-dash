@@ -1,7 +1,7 @@
-# Ring3 Dashboard
+# docker-xs-dev-dash
 
-A docker container for the team information radiator dashboard using
-InfluxDB[1] and Grafana[2].
+A docker image for the Xenserver Ring3 team's information radiatory dashboard
+using InfluxDB[1] and Grafana[2].
 
 There are scripts to query the REST APIs of JIRA and Github to obtain open bug
 counts and pull-requests respectively. These write to a database in
