@@ -12,10 +12,10 @@ This has all been packaged up into a Docker container for seamless deployment.
 No need to worry about the host environment or dependencies, so long as you
 have Docker.
 
-## Installation
+## Usage
 0. Install Docker[3];
 0. Get a Github API key (see below);
-0. Run `make run`;
+0. `make run`;
 0. Profit.
 
 This has now deployed the whole application in a container. It has mapped your
