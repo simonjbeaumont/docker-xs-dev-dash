@@ -677,7 +677,7 @@
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
-          "postfix": " PULL REQUESTS",
+          "postfix": " PULL REQS",
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
