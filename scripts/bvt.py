@@ -38,6 +38,10 @@ def is_build_action_ok(branch, action):
     return (last_passed_build_num > last_failed_build_num)
 
 
+def are_builds_action_ok(branch, actions):
+    reduce(lambda ok, action: ok and is_build_action_ok(branch, action), actions)
+
+
 def update_db(status, table):
     influx_uri = "http://localhost:8086/write?db=inforad"
     timestamp = int(time.time()) * 10**9
@@ -59,8 +63,8 @@ def parse_args_or_exit(argv=None):
 
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
-    build_status = is_build_action_ok("trunk-ring3", "xe-phase-1-build")
-    bvt_status = is_build_action_ok("trunk-ring3", "xe-phase-1-test-ring3")
+    build_status = are_builds_action_ok("trunk-ring3", ["xe-phase-1-build", "xe-phase-2-build"])
+    bvt_status = are_builds_action_ok("trunk-ring3", ["xe-phase-1-test-ring3"])
     if args.dry_run:
         print "Build status: %s" % ("PASSED" if build_status else "FAILED")
         print "BVT status: %s" % ("PASSED" if bvt_status else "FAILED")
