@@ -501,7 +501,7 @@
             }
           ],
           "thresholds": "0,1,3",
-          "title": "XOP",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -566,7 +566,7 @@
             }
           ],
           "thresholds": "0,1,3",
-          "title": "SCTX",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -631,7 +631,7 @@
             }
           ],
           "thresholds": "0,1,3",
-          "title": "PAR",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -704,7 +704,7 @@
             }
           ],
           "thresholds": "0,5,10",
-          "title": "PULL REQUESTS",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -769,7 +769,7 @@
             }
           ],
           "thresholds": "0,1,3",
-          "title": "DC INBOX",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -834,7 +834,7 @@
             }
           ],
           "thresholds": "0,1,3",
-          "title": "HOTLIST",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
@@ -899,7 +899,7 @@
             }
           ],
           "thresholds": "0,5,10",
-          "title": "STAGING",
+          "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
           "valueMaps": [
