@@ -951,7 +951,7 @@
           ],
           "cacheTimeout": null,
           "format": "none",
-          "prefix": "LAST BUILD:",
+          "prefix": "LATEST BUILD:",
           "postfix": "",
           "nullText": null,
           "valueMaps": [
@@ -1020,7 +1020,7 @@
           ],
           "cacheTimeout": null,
           "format": "none",
-          "prefix": "LAST BVT:",
+          "prefix": "LATEST BVT:",
           "postfix": "",
           "nullText": null,
           "valueMaps": [
