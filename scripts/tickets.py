@@ -15,6 +15,7 @@ queries = {
     "CA,priority=Trivial": "R3 Dash: CA Trivial",
     "CA,priority=Unset": "R3 Dash: CA Unset",
     "CA,priority=Non-bug": "R3 Dash: CA Non-bug",
+    "CA,priority=Dundee-BCM": "R3 Dash: Dundee BCM",
     "SCTX": "R3 Dash: SCTX",
     "XOP": "R3 Dash: XOP",
     "PAR": "R3 Dash: PAR",
