@@ -66,6 +66,10 @@ container move whatever you need into `/var/opt/influxdb` which is the volume
 exposed by the data volume container. **Note:** this should be done with no
 other containers accessing the data volume container to avoid any corruption.
 
+## Secondary automation
+If you want to configure a machine to automatically run and display this
+dashboard then there are some instructions in INSTALL.md.
+
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
 [3]: https://docker.com
