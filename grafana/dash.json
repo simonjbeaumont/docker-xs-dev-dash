@@ -926,7 +926,7 @@
         {
           "title": "",
           "error": false,
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "singlestat",
           "id": 16,
@@ -995,7 +995,7 @@
         {
           "title": "",
           "error": false,
-          "span": 6,
+          "span": 4,
           "editable": true,
           "type": "singlestat",
           "id": 17,
@@ -1060,9 +1060,74 @@
             "lineColor": "rgb(31, 120, 193)",
             "fillColor": "rgba(31, 118, 189, 0.18)"
           }
+        },
+        {
+          "title": "",
+          "error": false,
+          "span": 4,
+          "editable": true,
+          "type": "singlestat",
+          "id": 18,
+          "links": [],
+          "maxDataPoints": 100,
+          "interval": null,
+          "targets": [
+            {
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "QRF"
+                }
+              ],
+              "groupByTags": [],
+              "fill": "none",
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "measurement": "CA",
+              "rawQuery": false,
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'QRF' AND $timeFilter GROUP BY time($interval) fill(none)"
+            }
+          ],
+          "cacheTimeout": null,
+          "format": "none",
+          "prefix": "QRF:",
+          "postfix": "",
+          "nullText": null,
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "nullPointMode": "connected",
+          "valueName": "current",
+          "prefixFontSize": "100%",
+          "valueFontSize": "100%",
+          "postfixFontSize": "70%",
+          "thresholds": "0,1,1",
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "sparkline": {
+            "show": false,
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "fillColor": "rgba(31, 118, 189, 0.18)"
+          },
+          "decimals": 3
         }
       ],
-      "title": "BVT status",
+      "title": "QRF",
       "collapse": false,
       "editable": true
     },
