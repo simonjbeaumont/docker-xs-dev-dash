@@ -61,7 +61,7 @@ def update_db(counts):
     timestamp = int(time.time()) * 10**9
     try:
         for (key, count) in counts.iteritems():
-            payload = "%s value=%d %d" % (key, count, timestamp)
+            payload = "%s value=%.3f %d" % (key, count, timestamp)
             requests.post(influx_uri, data=payload)
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to local influxdb failed")
