@@ -23,6 +23,23 @@ queries = {
     "Staging": "R3 Dash: Staging",
 }
 
+qrf_db_key = "CA,priority=QRF"
+qrf_jira_filter = "R3 Dash: Unresolved CA"
+
+
+def retrieve_qrf():
+    jira = JIRA({"server": "https://issues.citrite.net"})
+    try:
+        jql = "filter='%s'" % qrf_jira_filter
+        # The field DRV is custom and has custom field ID 18131 (urgh)
+        response = jira.search_issues(jql, maxResults=False,
+                                      fields="customfield_18131")
+        return sum([issue.fields.customfield_18131 for issue in response])
+        exit(1)
+    except JIRAError as e:
+        sys.stderr.write("error: Could not retrieve_qrf from JIRA: %s" % e)
+        exit(3)
+
 
 def retrieve_counts():
     jira = JIRA({"server": "https://issues.citrite.net"})
@@ -62,6 +79,7 @@ def parse_args_or_exit(argv=None):
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
     ticket_counts = retrieve_counts()
+    ticket_counts[qrf_db_key] = retrieve_qrf()
     if args.dry_run:
         print "Retrieved the following counts: %s" % ticket_counts
         exit(0)
