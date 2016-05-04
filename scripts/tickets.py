@@ -6,6 +6,8 @@ import requests
 import argparse
 from jira import JIRA, JIRAError
 
+jira_endpoint = "https://issues.citrite.net"
+
 queries = {
     "dc_inbox": "R3 Dash: DC Inbox",
     "CA,priority=Blocker": "R3 Dash: CA Blocker",
@@ -27,8 +29,7 @@ qrf_db_key = "CA,priority=QRF"
 qrf_jira_filter = "R3 Dash: Unresolved CA"
 
 
-def retrieve_qrf():
-    jira = JIRA({"server": "https://issues.citrite.net"})
+def retrieve_qrf(jira):
     try:
         jql = "filter='%s'" % qrf_jira_filter
         # The field DRV is custom and has custom field ID 18131 (urgh)
@@ -41,8 +42,7 @@ def retrieve_qrf():
         exit(3)
 
 
-def retrieve_counts():
-    jira = JIRA({"server": "https://issues.citrite.net"})
+def retrieve_counts(jira):
     counts = {}
     try:
         for (name, jira_filter) in queries.iteritems():
@@ -78,8 +78,9 @@ def parse_args_or_exit(argv=None):
 
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
-    ticket_counts = retrieve_counts()
-    ticket_counts[qrf_db_key] = retrieve_qrf()
+    jira = JIRA({"server": jira_endpoint})
+    ticket_counts = retrieve_counts(jira)
+    ticket_counts[qrf_db_key] = retrieve_qrf(jira)
     if args.dry_run:
         print "Retrieved the following counts: %s" % ticket_counts
         exit(0)
