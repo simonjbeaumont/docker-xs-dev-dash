@@ -1110,9 +1110,9 @@
           "prefixFontSize": "100%",
           "valueFontSize": "100%",
           "postfixFontSize": "70%",
-          "thresholds": "0,1,1",
+          "thresholds": "0,7,10",
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
