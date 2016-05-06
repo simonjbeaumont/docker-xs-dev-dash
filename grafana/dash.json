@@ -1288,6 +1288,106 @@
         }
       ],
       "title": "JIRA tickets graph"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 15,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": 7,
+            "threshold1Color": "rgba(216, 200, 27, 0.12)",
+            "threshold2": 10,
+            "threshold2Color": "rgba(234, 112, 112, 0.12)",
+            "thresholdLine": false
+          },
+          "id": 19,
+          "interval": ">12h",
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true,
+            "hideEmpty": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "png",
+          "seriesOverrides": [
+            {
+              "alias": "QRF",
+              "stack": false
+            }
+          ],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "target": "",
+              "tags": [
+                {
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "QRF"
+                }
+              ],
+              "groupByTags": [],
+              "fields": [
+                {
+                  "name": "value",
+                  "func": "last"
+                }
+              ],
+              "measurement": "CA",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'QRF' AND $timeFilter GROUP BY time($interval)",
+              "rawQuery": false,
+              "alias": "QRF"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "QRF over time",
+          "tooltip": {
+            "shared": true,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ],
+          "leftYAxisLabel": "QRF",
+          "decimals": 3,
+          "transparent": false
+        }
+      ],
+      "title": "QRF over time"
     }
   ],
   "nav": [
