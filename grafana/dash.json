@@ -1132,7 +1132,7 @@
       "editable": true
     },
     {
-      "collapse": false,
+      "collapse": true,
       "editable": true,
       "height": "350px",
       "panels": [
