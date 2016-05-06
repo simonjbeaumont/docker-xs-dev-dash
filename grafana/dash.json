@@ -1203,7 +1203,7 @@
                 "priority"
               ],
               "measurement": "CA",
-              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Blocker' OR \"priority\" = 'Critical' OR \"priority\" = 'Major' AND $timeFilter GROUP BY time($interval), \"priority\"",
+              "query": "SELECT last(value) FROM \"CA\" WHERE \"priority\" = 'Blocker' OR \"priority\" = 'Critical' OR \"priority\" = 'Major' OR \"priority\" = 'Minor' OR \"priority\" = 'Trivial' AND $timeFilter GROUP BY time($interval), \"priority\"",
               "rawQuery": false,
               "tags": [
                 {
@@ -1222,6 +1222,18 @@
                   "key": "priority",
                   "operator": "=",
                   "value": "Major"
+                },
+                {
+                  "condition": "OR",
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Minor"
+                },
+                {
+                  "condition": "OR",
+                  "key": "priority",
+                  "operator": "=",
+                  "value": "Trivial"
                 }
               ]
             },
