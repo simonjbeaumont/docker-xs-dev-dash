@@ -1110,7 +1110,7 @@
           "prefixFontSize": "100%",
           "valueFontSize": "100%",
           "postfixFontSize": "70%",
-          "thresholds": "0,7,10",
+          "thresholds": "0,5.5,10",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -1320,7 +1320,7 @@
             "rightLogBase": 1,
             "rightMax": null,
             "rightMin": null,
-            "threshold1": 7,
+            "threshold1": 5.5,
             "threshold1Color": "rgba(216, 200, 27, 0.12)",
             "threshold2": 10,
             "threshold2Color": "rgba(234, 112, 112, 0.12)",
