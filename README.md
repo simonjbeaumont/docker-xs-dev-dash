@@ -51,6 +51,12 @@ This will drop you into the container with none of the services running. If you
 want them running you can execute `supervisord` as in the Dockerfile. It also
 mounts the repo inside the container.
 
+If you want to expose the InfluxDB ports then you can do so as follows:
+
+```sh
+PORTS="-p 8083:8083 -p 8086:8086" make <run|shell>
+```
+
 ## Customisation for other teams
 Most of the scripts to gather data have all of their parameters at the top.
 E.g. `tickets.py` speifies a dictionary at the top of the file of JIRA filter
