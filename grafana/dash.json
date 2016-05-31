@@ -703,7 +703,7 @@
               "tags": []
             }
           ],
-          "thresholds": "0,5,10",
+          "thresholds": "0,8,15",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "200%",
