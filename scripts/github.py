@@ -120,12 +120,13 @@ def parse_args_or_exit(argv=None):
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
     counts = retreive_counts()
+    total = sum(counts.values())
     if args.dry_run:
         print "Retrieved the following counts: %s" % counts
+        print "Total: %d" % total
         exit(0)
     # use same timestamp for all database writes for consistent key
     tstamp = int(time.time()) * 10**9
     for (repo, count) in counts.iteritems():
         db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
-    total = sum(counts.values())
     db_write(DB_URI, "total_open_pull_requests", total, tstamp)
