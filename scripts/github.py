@@ -98,21 +98,23 @@ def retreive_counts():
     return counts
 
 
-def update_db(counts):
-    influx_uri = "http://localhost:8086/write?db=inforad"
-    tstamp = int(time.time()) * 10**9
+def db_write(db_uri, measurement, value, timestamp):
     try:
-        total = 0
-        for (repo, count) in counts.iteritems():
-            data = "open_pull_requests,repo=%s value=%d %d" % (repo, count,
-                                                               tstamp)
-            requests.post(influx_uri, data=data)
-            total += count
-        data = "total_open_pull_requests value=%d" % total
-        requests.post(influx_uri, data=data)
+        payload = "%s value=%s %d" % (measurement, value, timestamp)
+        requests.post(db_uri, data=payload)
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to local influxdb failed")
         sys.exit(5)
+
+
+def update_db(counts):
+    db_uri = "http://localhost:8086/write?db=inforad"
+    tstamp = int(time.time()) * 10**9
+    total = 0
+    for (repo, count) in counts.iteritems():
+        db_write(db_uri, "open_pull_requests,repo=%s" % repo, count, tstamp)
+        total += count
+    db_write(db_uri, "total_open_pull_requests", total, tstamp)
 
 
 def parse_args_or_exit(argv=None):
