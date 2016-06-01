@@ -7,16 +7,16 @@ import datetime
 import requests
 import argparse
 
-params = [
-    "user:xapi-project",
-    "type:pr",
-    "state:open",
-    "-repo:xapi-project/sm",
-    "-repo:xapi-project/blktap",
-    "-repo:xapi-project/xapi-storage-datapath-plugins",
-    "-repo:xapi-project/xen-api-sdk",
+GITHUB_ORG = "xapi-project"
+
+EXCLUDE_REPOS = [
+    "xapi-project/sm",
+    "xapi-project/blktap",
+    "xapi-project/xapi-storage-datapath-plugins",
+    "xapi-project/xen-api-sdk",
 ]
-additional_repos = [
+
+ADDITIONAL_REPOS = [
     "xenserver/perf-tools",
     "xenserver/rrdd-plugins",
     "xenserver/gpumon",
@@ -32,8 +32,17 @@ additional_repos = [
     "xenserver/xen-api-libs",
     "xenserver/filesystem-summarise",
 ]
-additional_repo_params = ["repo:" + repo for repo in additional_repos]
-query = "+".join(params + additional_repo_params)
+
+
+def query_all():
+    base_params = [
+        "user:" + GITHUB_ORG,
+        "type:pr",
+        "state:open",
+    ]
+    exclude_repo_params = ["-repo:" + repo for repo in EXCLUDE_REPOS]
+    additional_repo_params = ["repo:" + repo for repo in ADDITIONAL_REPOS]
+    return "+".join(base_params + exclude_repo_params + additional_repo_params)
 
 
 def query_only_inactive(query):
@@ -71,7 +80,7 @@ def retreive_counts():
         headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
     try:
         repo_responses = get_all_responses(repos_uri, headers)
-        pull_responses = get_all_responses(search_uri(query), headers)
+        pull_responses = get_all_responses(search_uri(query_all()), headers)
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to Github failed")
         sys.exit(3)
@@ -80,7 +89,7 @@ def retreive_counts():
         sys.exit(4)
     repos_json = sum([r.json() for r in repo_responses], [])
     counts = {r['full_name']: 0 for r in repos_json}
-    counts.update({r: 0 for r in additional_repos})
+    counts.update({r: 0 for r in ADDITIONAL_REPOS})
     pull_reqs = sum([r.json()['items'] for r in pull_responses], [])
     urls = [pr["html_url"] for pr in pull_reqs]
     repos = ['/'.join(url.split('/')[3:5]) for url in urls]
