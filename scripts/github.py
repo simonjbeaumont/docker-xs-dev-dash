@@ -83,12 +83,12 @@ def get_all_responses(uri, headers):
         sys.exit(4)
 
 
-def retreive_counts():
+def retreive_counts(query):
     headers = {}
     if 'GH_TOKEN' in os.environ:
         headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
     repo_responses = get_all_responses(repos_uri, headers)
-    pull_responses = get_all_responses(search_uri(query_all()), headers)
+    pull_responses = get_all_responses(search_uri(query), headers)
     repos_json = sum([r.json() for r in repo_responses], [])
     counts = {r['full_name']: 0 for r in repos_json}
     counts.update({r: 0 for r in ADDITIONAL_REPOS})
@@ -119,7 +119,7 @@ def parse_args_or_exit(argv=None):
 
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
-    counts = retreive_counts()
+    counts = retreive_counts(query_all())
     total = sum(counts.values())
     if args.dry_run:
         print "Retrieved the following counts: %s" % counts
