@@ -49,13 +49,11 @@ def query_only_inactive(query):
     return "+".join([query, exclude_blocked_param, before_param])
 
 
-headers = {}
-if 'GH_TOKEN' in os.environ:
-    headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
-
-search_uri = "https://api.github.com/search/issues?q=" + query
-
 repos_uri = "https://api.github.com/orgs/xapi-project/repos"
+
+
+def search_uri(query):
+    return "https://api.github.com/search/issues?q=" + query
 
 
 def get_all_responses(uri, headers):
@@ -68,9 +66,12 @@ def get_all_responses(uri, headers):
 
 
 def retreive_counts():
+    headers = {}
+    if 'GH_TOKEN' in os.environ:
+        headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
     try:
         repo_responses = get_all_responses(repos_uri, headers)
-        pull_responses = get_all_responses(search_uri, headers)
+        pull_responses = get_all_responses(search_uri(query), headers)
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to Github failed")
         sys.exit(3)
