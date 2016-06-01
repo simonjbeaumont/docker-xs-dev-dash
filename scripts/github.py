@@ -47,7 +47,7 @@ def query_all():
     return "+".join(base_params + exclude_repo_params + additional_repo_params)
 
 
-def query_only_inactive(query):
+def exclude_active_from_query(query):
     exclude_blocked_param = "-label:blocked"
     now_time = datetime.datetime.now()
     if now_time.isoweekday() == 1:  # today is Mon, last working day is Fri
@@ -125,13 +125,17 @@ def parse_args_or_exit(argv=None):
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
     counts = retreive_counts(query_all())
+    inactive_counts = retreive_counts(exclude_active_from_query(query_all()))
     total = sum(counts.values())
+    total_inactive = sum(inactive_counts.values())
     if args.dry_run:
         print "Retrieved the following counts: %s" % counts
         print "Total: %d" % total
+        print "Inactive: %d" % total_inactive
         exit(0)
     # use same timestamp for all database writes for consistent key
     tstamp = int(time.time()) * 10**9
     for (repo, count) in counts.iteritems():
         db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
     db_write(DB_URI, "total_open_pull_requests", total, tstamp)
+    db_write(DB_URI, "total_inactive_pull_requests", total_inactive, tstamp)
