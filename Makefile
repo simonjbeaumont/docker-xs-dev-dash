@@ -23,7 +23,7 @@ shell: build data stop
 data: build
 	docker run --name=$(DATA_CON) -ti $(IMG_NAME) true 2>/dev/null || true
 
-purge:
+purge: stop
 	@read -n1 -r -p "This will remove all persistent data. Are you sure? " ;\
 	echo ;\
 	if [ "$$REPLY" == "y" ]; then \
