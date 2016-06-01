@@ -37,9 +37,10 @@ query = "+".join(params + additional_repo_params)
 
 
 def query_only_inactive(query):
+    exclude_blocked_param = "-label:blocked"
     before_time = datetime.datetime.now() - datetime.timedelta(days=1)
     before_param = "-updated:>%s" % before_time.strftime("%Y-%d-%dT%H:%M:%S")
-    return "+".join([query, before_param])
+    return "+".join([query, exclude_blocked_param, before_param])
 
 
 headers = {}
