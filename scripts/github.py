@@ -109,14 +109,6 @@ def db_write(db_uri, measurement, value, timestamp):
         sys.exit(5)
 
 
-def update_db(counts):
-    tstamp = int(time.time()) * 10**9
-    for (repo, count) in counts.iteritems():
-        db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
-    total = sum(counts.values())
-    db_write(DB_URI, "total_open_pull_requests", total, tstamp)
-
-
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Add number of open ring3 pull-requests to dashboard DB')
@@ -131,4 +123,9 @@ if __name__ == "__main__":
     if args.dry_run:
         print "Retrieved the following counts: %s" % counts
         exit(0)
-    update_db(counts)
+    # use same timestamp for all database writes for consistent key
+    tstamp = int(time.time()) * 10**9
+    for (repo, count) in counts.iteritems():
+        db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
+    total = sum(counts.values())
+    db_write(DB_URI, "total_open_pull_requests", total, tstamp)
