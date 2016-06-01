@@ -7,6 +7,8 @@ import datetime
 import requests
 import argparse
 
+DB_URI = "http://localhost:8086/write?db=inforad"
+
 GITHUB_ORG = "xapi-project"
 
 EXCLUDE_REPOS = [
@@ -108,13 +110,12 @@ def db_write(db_uri, measurement, value, timestamp):
 
 
 def update_db(counts):
-    db_uri = "http://localhost:8086/write?db=inforad"
     tstamp = int(time.time()) * 10**9
     total = 0
     for (repo, count) in counts.iteritems():
-        db_write(db_uri, "open_pull_requests,repo=%s" % repo, count, tstamp)
+        db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
         total += count
-    db_write(db_uri, "total_open_pull_requests", total, tstamp)
+    db_write(DB_URI, "total_open_pull_requests", total, tstamp)
 
 
 def parse_args_or_exit(argv=None):
