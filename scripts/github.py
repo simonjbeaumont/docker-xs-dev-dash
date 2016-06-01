@@ -111,10 +111,9 @@ def db_write(db_uri, measurement, value, timestamp):
 
 def update_db(counts):
     tstamp = int(time.time()) * 10**9
-    total = 0
     for (repo, count) in counts.iteritems():
         db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
-        total += count
+    total = sum(counts.values())
     db_write(DB_URI, "total_open_pull_requests", total, tstamp)
 
 
