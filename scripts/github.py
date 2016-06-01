@@ -38,7 +38,13 @@ query = "+".join(params + additional_repo_params)
 
 def query_only_inactive(query):
     exclude_blocked_param = "-label:blocked"
-    before_time = datetime.datetime.now() - datetime.timedelta(days=1)
+    now_time = datetime.datetime.now()
+    if now_time.isoweekday() == 1:  # today is Mon, last working day is Fri
+        before_time = now_time - datetime.timedelta(days=3)
+    elif now_time.isoweekday() == 7:  # today is Sun, last working day is Fri
+        before_time = now_time - datetime.timedelta(days=2)
+    else:  # today is Tue-Sat, last working day is yesterday
+        before_time = now_time - datetime.timedelta(days=1)
     before_param = "-updated:>%s" % before_time.strftime("%Y-%d-%dT%H:%M:%S")
     return "+".join([query, exclude_blocked_param, before_param])
 
