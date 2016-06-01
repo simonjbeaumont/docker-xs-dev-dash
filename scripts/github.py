@@ -3,6 +3,7 @@
 import os
 import sys
 import time
+import datetime
 import requests
 import argparse
 
@@ -33,6 +34,13 @@ additional_repos = [
 ]
 additional_repo_params = ["repo:" + repo for repo in additional_repos]
 query = "+".join(params + additional_repo_params)
+
+
+def query_only_inactive(query):
+    before_time = datetime.datetime.now() - datetime.timedelta(days=1)
+    before_param = "-updated:>%s" % before_time.strftime("%Y-%d-%dT%H:%M:%S")
+    return "+".join([query, before_param])
+
 
 headers = {}
 if 'GH_TOKEN' in os.environ:
