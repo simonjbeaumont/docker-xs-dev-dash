@@ -70,6 +70,11 @@ def search_uri(query):
 def get_all_responses(uri, headers):
     try:
         r = requests.get(uri, headers=headers)
+        if not r.ok:
+            sys.stderr.write("error: API request failed: %d (%s)" %
+                             (r.status_code, r.reason))
+            sys.stderr.write("response: %s" % r.text)
+            sys.exit(6)
         responses = [r]
         while 'next' in r.links:
             r = requests.get(r.links['next']['url'], headers=headers)
