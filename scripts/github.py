@@ -66,27 +66,27 @@ def search_uri(query):
 
 
 def get_all_responses(uri, headers):
-    r = requests.get(uri, headers=headers)
-    responses = [r]
-    while 'next' in r.links:
-        r = requests.get(r.links['next']['url'], headers=headers)
-        responses.append(r)
-    return responses
-
-
-def retreive_counts():
-    headers = {}
-    if 'GH_TOKEN' in os.environ:
-        headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
     try:
-        repo_responses = get_all_responses(repos_uri, headers)
-        pull_responses = get_all_responses(search_uri(query_all()), headers)
+        r = requests.get(uri, headers=headers)
+        responses = [r]
+        while 'next' in r.links:
+            r = requests.get(r.links['next']['url'], headers=headers)
+            responses.append(r)
+        return responses
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to Github failed")
         sys.exit(3)
     except ValueError:
         sys.stderr.write("error: Response from Github API was not JSON")
         sys.exit(4)
+
+
+def retreive_counts():
+    headers = {}
+    if 'GH_TOKEN' in os.environ:
+        headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
+    repo_responses = get_all_responses(repos_uri, headers)
+    pull_responses = get_all_responses(search_uri(query_all()), headers)
     repos_json = sum([r.json() for r in repo_responses], [])
     counts = {r['full_name']: 0 for r in repos_json}
     counts.update({r: 0 for r in ADDITIONAL_REPOS})
