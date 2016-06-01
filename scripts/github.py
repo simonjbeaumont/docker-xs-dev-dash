@@ -56,7 +56,7 @@ def query_only_inactive(query):
         before_time = now_time - datetime.timedelta(days=2)
     else:  # today is Tue-Sat, last working day is yesterday
         before_time = now_time - datetime.timedelta(days=1)
-    before_param = "-updated:>%s" % before_time.strftime("%Y-%d-%dT%H:%M:%S")
+    before_param = "-updated:>%s" % before_time.strftime("%Y-%m-%dT%H:%M:%S")
     return "+".join([query, exclude_blocked_param, before_param])
 
 
