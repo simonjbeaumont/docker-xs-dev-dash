@@ -71,9 +71,9 @@ def get_all_responses(uri, headers):
     try:
         r = requests.get(uri, headers=headers)
         if not r.ok:
-            sys.stderr.write("error: API request failed: %d (%s)" %
+            sys.stderr.write("error: API request failed: %d (%s)\n" %
                              (r.status_code, r.reason))
-            sys.stderr.write("response: %s" % r.text)
+            sys.stderr.write("response: %s\n" % r.text)
             sys.exit(6)
         responses = [r]
         while 'next' in r.links:
@@ -81,10 +81,10 @@ def get_all_responses(uri, headers):
             responses.append(r)
         return responses
     except requests.exceptions.ConnectionError:
-        sys.stderr.write("error: Connection to Github failed")
+        sys.stderr.write("error: Connection to Github failed\n")
         sys.exit(3)
     except ValueError:
-        sys.stderr.write("error: Response from Github API was not JSON")
+        sys.stderr.write("error: Response from Github API was not JSON\n")
         sys.exit(4)
 
 
@@ -110,7 +110,7 @@ def db_write(db_uri, measurement, value, timestamp):
         payload = "%s value=%s %d" % (measurement, value, timestamp)
         requests.post(db_uri, data=payload)
     except requests.exceptions.ConnectionError:
-        sys.stderr.write("error: Connection to local influxdb failed")
+        sys.stderr.write("error: Connection to local influxdb failed\n")
         sys.exit(5)
 
 
