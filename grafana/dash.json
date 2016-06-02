@@ -1306,7 +1306,7 @@
           "datasource": null,
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {
             "leftLogBase": 1,
             "leftMax": null,
@@ -1345,7 +1345,7 @@
           "seriesOverrides": [
             {
               "alias": "QRF",
-              "stack": false
+              "color": "#DEDEDE"
             }
           ],
           "span": 12,
