@@ -60,7 +60,8 @@ def exclude_active_from_query(query):
     return "+".join([query, exclude_blocked_param, before_param])
 
 
-repos_uri = "https://api.github.com/orgs/xapi-project/repos"
+def repos_uri(org):
+    return "https://api.github.com/orgs/%s/repos" % org
 
 
 def search_uri(query):
@@ -92,7 +93,7 @@ def retreive_counts(query):
     headers = {}
     if 'GH_TOKEN' in os.environ:
         headers['Authorization'] = "token %s" % os.environ['GH_TOKEN']
-    repo_responses = get_all_responses(repos_uri, headers)
+    repo_responses = get_all_responses(repos_uri(GITHUB_ORG), headers)
     pull_responses = get_all_responses(search_uri(query), headers)
     repos_json = sum([r.json() for r in repo_responses], [])
     counts = {r['full_name']: 0 for r in repos_json}
