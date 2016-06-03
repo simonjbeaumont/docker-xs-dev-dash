@@ -1,7 +1,7 @@
 # docker-xs-dev-dash
 
 A docker image for the Xenserver Ring3 team's information radiatory dashboard
-using InfluxDB[1] and Grafana[2].
+using [InfluxDB][1] and [Grafana][2].
 
 There are scripts to query the REST APIs of JIRA and Github to obtain open bug
 counts and pull-requests respectively. These write to a database in
@@ -13,8 +13,8 @@ No need to worry about the host environment or dependencies, so long as you
 have Docker.
 
 ## Usage
-0. Install Docker[3];
-0. Get a Github API key (see below);
+0. Install [Docker][3];
+0. Get a Github API key (see [below][4]);
 0. `make run`;
 0. Profit.
 
@@ -79,3 +79,4 @@ dashboard then there are some instructions in INSTALL.md.
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
 [3]: https://docker.com
+[4]: #github-authentication
