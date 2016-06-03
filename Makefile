@@ -27,7 +27,7 @@ purge: stop
 	@read -n1 -r -p "This will remove all persistent data. Are you sure? " ;\
 	echo ;\
 	if [ "$$REPLY" == "y" ]; then \
-		docker rm -f $(DATA_CON); \
+		docker rm -f $(DATA_CON) 2>/dev/null || true; \
 	fi
 
 .PHONY: build clean run shell data purge
