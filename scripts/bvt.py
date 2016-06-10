@@ -51,7 +51,7 @@ def update_db(status, table):
 
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
-        description='Get the status of last build and BVT run and add to dashboard DB')
+        description='Get latest build and BVT status and add to dashboard DB')
     parser.add_argument('-n', '--dry-run', action='store_true',
                         help='Just retrieve and print the status, then exit')
     return parser.parse_args(argv)
