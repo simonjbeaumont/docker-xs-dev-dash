@@ -40,7 +40,6 @@ def retrieve_qrf(jira):
                                       fields="customfield_18131")
         qrf = sum([issue.fields.customfield_18131 for issue in response])
         return round(qrf, 3)
-        exit(1)
     except JIRAError as exn:
         sys.stderr.write("error: Could not retrieve_qrf from JIRA: %s" % exn)
         exit(3)
