@@ -6,9 +6,9 @@ import requests
 import argparse
 from jira import JIRA, JIRAError
 
-jira_endpoint = "https://issues.citrite.net"
+JIRA_ENDPOINT = "https://issues.citrite.net"
 
-queries = {
+QUERIES = {
     "dc_inbox": "R3 Dash: DC Inbox",
     "CA,priority=Blocker": "R3 Dash: CA Blocker",
     "CA,priority=Critical": "R3 Dash: CA Critical",
@@ -25,13 +25,13 @@ queries = {
     "Staging": "R3 Dash: Staging",
 }
 
-qrf_db_key = "CA,priority=QRF"
-qrf_jira_filter = "R3 Dash: Unresolved CA"
+QRF_DB_KEY = "CA,priority=QRF"
+QRF_JIRA_FILTER = "R3 Dash: Unresolved CA"
 
 
 def retrieve_qrf(jira):
     try:
-        jql = "filter='%s'" % qrf_jira_filter
+        jql = "filter='%s'" % QRF_JIRA_FILTER
         # The field DRV is custom and has custom field ID 18131 (urgh)
         response = jira.search_issues(jql, maxResults=False,
                                       fields="customfield_18131")
@@ -45,7 +45,7 @@ def retrieve_qrf(jira):
 def retrieve_counts(jira):
     counts = {}
     try:
-        for (name, jira_filter) in queries.iteritems():
+        for (name, jira_filter) in QUERIES.iteritems():
             jql = "filter='%s'" % jira_filter
             response = jira.search_issues(jql, maxResults=1, fields='key',
                                           json_result=True)
@@ -78,9 +78,9 @@ def parse_args_or_exit(argv=None):
 
 if __name__ == "__main__":
     args = parse_args_or_exit(sys.argv[1:])
-    jira = JIRA({"server": jira_endpoint})
+    jira = JIRA({"server": JIRA_ENDPOINT})
     ticket_counts = retrieve_counts(jira)
-    ticket_counts[qrf_db_key] = retrieve_qrf(jira)
+    ticket_counts[QRF_DB_KEY] = retrieve_qrf(jira)
     if args.dry_run:
         print "Retrieved the following counts: %s" % ticket_counts
         exit(0)
