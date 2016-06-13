@@ -1,0 +1,7 @@
+[MESSAGES CONTROL]
+disable=missing-docstring
+
+[REPORTS]
+output-format=text
+files-output=no
+reports=no

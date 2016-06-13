@@ -4,6 +4,7 @@ install:
   - pip install pep8 pylint
 script:
   - pep8 --show-source --show-pep8 scripts/*.py
+  - pylint scripts/*.py
   - touch .gh-token
   - make run
   - make stop
