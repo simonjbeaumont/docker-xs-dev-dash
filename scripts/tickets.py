@@ -6,6 +6,7 @@ import argparse
 from jira import JIRA, JIRAError
 
 from common import db_write
+from common import add_common_parser_args
 
 DB_URI = "http://localhost:8086/write?db=inforad"
 
@@ -62,8 +63,7 @@ def retrieve_counts(jira):
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get number of open ring3 tickets and add to dashboard DB')
-    parser.add_argument('-n', '--dry-run', action='store_true',
-                        help='Just retrieve and print the counts, then exit')
+    add_common_parser_args(parser)
     return parser.parse_args(argv)
 
 

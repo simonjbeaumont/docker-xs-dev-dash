@@ -7,6 +7,7 @@ import urllib
 import urllib2
 
 from common import db_write
+from common import add_common_parser_args
 
 DB_URI = "http://localhost:8086/write?db=inforad"
 
@@ -44,8 +45,7 @@ def is_build_action_ok(branch, action):
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get latest build and BVT status and add to dashboard DB')
-    parser.add_argument('-n', '--dry-run', action='store_true',
-                        help='Just retrieve and print the status, then exit')
+    add_common_parser_args(parser)
     return parser.parse_args(argv)
 
 
