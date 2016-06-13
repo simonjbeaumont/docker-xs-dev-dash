@@ -7,6 +7,8 @@ import datetime
 import requests
 import argparse
 
+from common import db_write
+
 DB_URI = "http://localhost:8086/write?db=inforad"
 
 GITHUB_ORG = "xapi-project"
@@ -104,15 +106,6 @@ def retreive_counts(query):
     for repo in repos:
         counts[repo] += 1
     return counts
-
-
-def db_write(db_uri, measurement, value, timestamp):
-    try:
-        payload = "%s value=%s %d" % (measurement, value, timestamp)
-        requests.post(db_uri, data=payload)
-    except requests.exceptions.ConnectionError:
-        sys.stderr.write("error: Connection to local influxdb failed\n")
-        sys.exit(5)
 
 
 def parse_args_or_exit(argv=None):
