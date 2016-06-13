@@ -72,16 +72,16 @@ def search_uri(query):
 
 def get_all_responses(uri, headers):
     try:
-        r = requests.get(uri, headers=headers)
-        if not r.ok:
+        resp = requests.get(uri, headers=headers)
+        if not resp.ok:
             sys.stderr.write("error: API request failed: %d (%s)\n" %
-                             (r.status_code, r.reason))
-            sys.stderr.write("response: %s\n" % r.text)
+                             (resp.status_code, resp.reason))
+            sys.stderr.write("response: %s\n" % resp.text)
             sys.exit(6)
-        responses = [r]
-        while 'next' in r.links:
-            r = requests.get(r.links['next']['url'], headers=headers)
-            responses.append(r)
+        responses = [resp]
+        while 'next' in resp.links:
+            resp = requests.get(resp.links['next']['url'], headers=headers)
+            responses.append(resp)
         return responses
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to Github failed\n")
