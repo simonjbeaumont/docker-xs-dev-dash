@@ -5,7 +5,10 @@ import time
 import argparse
 import urllib
 import urllib2
-import requests
+
+from common import db_write
+
+DB_URI = "http://localhost:8086/write?db=inforad"
 
 
 def get_xenbuilder_url(branch, action, success):
@@ -38,17 +41,6 @@ def is_build_action_ok(branch, action):
     return (last_passed_build_num > last_failed_build_num)
 
 
-def update_db(status, table):
-    influx_uri = "http://localhost:8086/write?db=inforad"
-    timestamp = int(time.time()) * 10**9
-    try:
-        data = "%s value=%d %d" % (table, (1 if status else 0), timestamp)
-        requests.post(influx_uri, data=data)
-    except requests.exceptions.ConnectionError:
-        sys.stderr.write("error: Connection to local influxdb failed")
-        exit(5)
-
-
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get latest build and BVT status and add to dashboard DB')
@@ -65,5 +57,6 @@ if __name__ == "__main__":
         print "Build status: %s" % ("PASSED" if build_status else "FAILED")
         print "BVT status: %s" % ("PASSED" if bvt_status else "FAILED")
         exit(0)
-    update_db(build_status, "build_status")
-    update_db(bvt_status, "bvt_status")
+    timestamp = int(time.time()) * 10**9
+    db_write(DB_URI, "build_status", (1 if build_status else 0), timestamp)
+    db_write(DB_URI, "bvt_status", (1 if bvt_status else 0), timestamp)
