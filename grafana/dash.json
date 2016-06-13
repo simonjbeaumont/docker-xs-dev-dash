@@ -742,7 +742,7 @@
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
-          "postfix": " INACTIVE",
+          "postfix": " INACTIVE PRS",
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
