@@ -38,7 +38,7 @@ def is_build_action_ok(branch, action):
     last_passed_url = get_xenbuilder_url(branch, action, True)
     last_failed_build_num = urllib2.urlopen(last_failed_url).read().strip()
     last_passed_build_num = urllib2.urlopen(last_passed_url).read().strip()
-    return (last_passed_build_num > last_failed_build_num)
+    return last_passed_build_num > last_failed_build_num
 
 
 def parse_args_or_exit(argv=None):
