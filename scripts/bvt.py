@@ -49,7 +49,7 @@ def parse_args_or_exit(argv=None):
     return parser.parse_args(argv)
 
 
-if __name__ == "__main__":
+def main():
     args = parse_args_or_exit(sys.argv[1:])
     build_status = is_build_action_ok("trunk-ring3", "xe-phase-1-build")
     bvt_status = is_build_action_ok("trunk-ring3", "xe-phase-1-test-ring3")
@@ -60,3 +60,6 @@ if __name__ == "__main__":
     timestamp = int(time.time()) * 10**9
     db_write(DB_URI, "build_status", (1 if build_status else 0), timestamp)
     db_write(DB_URI, "bvt_status", (1 if bvt_status else 0), timestamp)
+
+if __name__ == "__main__":
+    main()
