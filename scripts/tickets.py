@@ -2,9 +2,12 @@
 
 import sys
 import time
-import requests
 import argparse
 from jira import JIRA, JIRAError
+
+from common import db_write
+
+DB_URI = "http://localhost:8086/write?db=inforad"
 
 JIRA_ENDPOINT = "https://issues.citrite.net"
 
@@ -57,18 +60,6 @@ def retrieve_counts(jira):
     return counts
 
 
-def update_db(counts):
-    influx_uri = "http://localhost:8086/write?db=inforad"
-    timestamp = int(time.time()) * 10**9
-    try:
-        for (key, count) in counts.iteritems():
-            payload = "%s value=%s %d" % (key, count, timestamp)
-            requests.post(influx_uri, data=payload)
-    except requests.exceptions.ConnectionError:
-        sys.stderr.write("error: Connection to local influxdb failed")
-        exit(5)
-
-
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get number of open ring3 tickets and add to dashboard DB')
@@ -85,8 +76,10 @@ def main():
     if args.dry_run:
         print "Retrieved the following counts: %s" % ticket_counts
         exit(0)
-    update_db(ticket_counts)
-
+    # use same timestamp for all database writes for consistent key
+    tstamp = int(time.time()) * 10**9
+    for (key, count) in ticket_counts.iteritems():
+        db_write(DB_URI, key, count, tstamp)
 
 if __name__ == "__main__":
     main()
