@@ -76,12 +76,13 @@ other containers accessing the data volume container to avoid any corruption.
 
 ## Secondary automation
 If you want to configure a machine to automatically run and display this
-dashboard then there are some instructions in INSTALL.md.
+dashboard then there are some instructions in [INSTALL.md][5].
 
 [1]: https://influxdb.com/download/index.html
 [2]: http://grafana.org/download/
 [3]: https://docker.com
 [4]: #github-authentication
+[5]: INSTALL.md
 
 [travis-badge]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash.svg?branch=master
 [travis-url]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash
