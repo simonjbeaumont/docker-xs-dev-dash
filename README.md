@@ -1,5 +1,7 @@
 # docker-xs-dev-dash
 
+[![Build Status][travis-badge]][travis-url]
+
 A docker image for the Xenserver Ring3 team's information radiatory dashboard
 using [InfluxDB][1] and [Grafana][2].
 
@@ -80,3 +82,6 @@ dashboard then there are some instructions in INSTALL.md.
 [2]: http://grafana.org/download/
 [3]: https://docker.com
 [4]: #github-authentication
+
+[travis-badge]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash.svg?branch=master
+[travis-url]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash
