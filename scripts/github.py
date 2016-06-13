@@ -116,7 +116,7 @@ def parse_args_or_exit(argv=None):
     return parser.parse_args(argv)
 
 
-if __name__ == "__main__":
+def main():
     args = parse_args_or_exit(sys.argv[1:])
     counts = retreive_counts(query_all())
     inactive_counts = retreive_counts(exclude_active_from_query(query_all()))
@@ -133,3 +133,6 @@ if __name__ == "__main__":
         db_write(DB_URI, "open_pull_requests,repo=%s" % repo, count, tstamp)
     db_write(DB_URI, "total_open_pull_requests", total, tstamp)
     db_write(DB_URI, "total_inactive_pull_requests", total_inactive, tstamp)
+
+if __name__ == "__main__":
+    main()
