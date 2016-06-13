@@ -35,7 +35,8 @@ def retrieve_qrf(jira):
         # The field DRV is custom and has custom field ID 18131 (urgh)
         response = jira.search_issues(jql, maxResults=False,
                                       fields="customfield_18131")
-        return sum([issue.fields.customfield_18131 for issue in response])
+        qrf = sum([issue.fields.customfield_18131 for issue in response])
+        return round(qrf, 3)
         exit(1)
     except JIRAError as e:
         sys.stderr.write("error: Could not retrieve_qrf from JIRA: %s" % e)
@@ -61,7 +62,7 @@ def update_db(counts):
     timestamp = int(time.time()) * 10**9
     try:
         for (key, count) in counts.iteritems():
-            payload = "%s value=%.3f %d" % (key, count, timestamp)
+            payload = "%s value=%s %d" % (key, count, timestamp)
             requests.post(influx_uri, data=payload)
     except requests.exceptions.ConnectionError:
         sys.stderr.write("error: Connection to local influxdb failed")
