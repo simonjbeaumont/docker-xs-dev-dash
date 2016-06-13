@@ -76,7 +76,7 @@ def parse_args_or_exit(argv=None):
     return parser.parse_args(argv)
 
 
-if __name__ == "__main__":
+def main():
     args = parse_args_or_exit(sys.argv[1:])
     jira = JIRA({"server": JIRA_ENDPOINT})
     ticket_counts = retrieve_counts(jira)
@@ -85,3 +85,7 @@ if __name__ == "__main__":
         print "Retrieved the following counts: %s" % ticket_counts
         exit(0)
     update_db(ticket_counts)
+
+
+if __name__ == "__main__":
+    main()
