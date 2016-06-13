@@ -5,11 +5,12 @@ PORTS+=-p 80:80
 VOLUMES+=--volumes-from $(DATA_CON) -v /etc/localtime:/etc/localtime:ro
 DEV_VOL=-v $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/host
 
-build: .
+build: . .gh-token
 	docker build -t $(IMG_NAME) .
 
 clean:
-	docker rmi $(IMG_NAME)
+	docker rmi $(IMG_NAME) 2>/dev/null || true
+	[ ! -s .gh-token ] && rm -f .gh-token
 
 stop:
 	docker rm -f $(DASH_CON) 2>/dev/null || true
@@ -29,5 +30,15 @@ purge: stop
 	if [ "$$REPLY" == "y" ]; then \
 		docker rm -f $(DATA_CON) 2>/dev/null || true; \
 	fi
+
+.gh-token:
+	@if [ ! -s $@ ]; then \
+		read -n1 -r -p "$@ does not exist, create dummy token? "; echo; \
+		if [ "$$REPLY" != "y" ]; then \
+			echo "Aborting"; \
+			exit 2; \
+		fi \
+	fi
+	@touch $@
 
 .PHONY: build clean run shell data purge
