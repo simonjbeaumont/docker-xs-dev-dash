@@ -8,6 +8,7 @@ RUN dnf install -qy https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x
 RUN dnf install -qy nginx
 RUN dnf install -qy supervisor
 RUN dnf install -qy cronie
+RUN dnf install -qy nmap-ncat
 RUN pip install -q requests jira
 
 # influxdb

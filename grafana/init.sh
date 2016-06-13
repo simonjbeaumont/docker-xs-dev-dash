@@ -10,6 +10,8 @@ fi
 
 /etc/init.d/grafana-server start
 
+until nc localhost 3000 < /dev/null; do sleep 1; done
+
 curl 'http://admin:admin@localhost:3000/api/datasources' \
     -X POST -H "Content-Type: application/json" \
     --data-binary <<DATASOURCE \
