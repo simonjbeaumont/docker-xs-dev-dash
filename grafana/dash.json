@@ -1296,7 +1296,7 @@
       "title": "JIRA tickets graph"
     },
     {
-      "collapse": false,
+      "collapse": true,
       "editable": true,
       "height": "350px",
       "panels": [
