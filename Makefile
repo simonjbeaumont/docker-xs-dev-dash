@@ -5,7 +5,7 @@ PORTS+=-p 80:80
 VOLUMES+=--volumes-from $(DATA_CON) -v /etc/localtime:/etc/localtime:ro
 DEV_VOL=-v $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/host
 
-build: . .gh-token
+build: . scripts/.gh-token
 	docker build -t $(IMG_NAME) .
 
 clean:
@@ -35,7 +35,7 @@ check: build
 	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pep8 --show-source --show-pep8 /host/scripts/*.py"
 	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pylint scripts/*.py"
 
-.gh-token:
+scripts/.gh-token:
 	@if [ ! -s $@ ]; then \
 		read -n1 -r -p "$@ does not exist, create dummy token? "; echo; \
 		if [ "$$REPLY" != "y" ]; then \

@@ -28,8 +28,7 @@ ADD ./nginx/nginx.conf /etc/nginx/nginx.conf
 ADD ./supervisord.conf /etc/supervisord.d/supervisord.conf
 
 # scripts to generate data
-ADD ./scripts/* /scripts/
-ADD ./.gh-token /scripts/gh-token
+ADD ./scripts/ /scripts/
 ADD ./crontab-entries /etc/cron.d/data-scripts
 
 # import grafana dashboard

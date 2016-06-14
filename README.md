@@ -36,7 +36,9 @@ Github imposes rate-limiting on its API. The limit is significantly higher if
 you autenticate your requests. The Github script supports this. The Dockerfile
 will `ADD` a file containing your key to the container so that it can be used
 by this script. This file must be present when you build the container in
-a file called `.gh-token`.
+a file called `scripts/.gh-token` if you don't want to be rate limited. The
+Makefile rule will ask if you want to generate a dummy one but this will be
+subject to rate limiting.
 
 ## Development
 The python scripts all supprt a `--dry-run` (or `-n`) option so that you can
