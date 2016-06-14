@@ -31,7 +31,7 @@ purge: stop
 		docker rm -f $(DATA_CON) 2>/dev/null || true; \
 	fi
 
-check:
+check: build
 	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pep8 --show-source --show-pep8 /host/scripts/*.py"
 	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pylint scripts/*.py"
 

@@ -4,8 +4,8 @@ import os
 import sys
 import time
 import datetime
-import requests
 import argparse
+import requests
 
 from common import db_write
 from common import add_common_parser_args
