@@ -32,6 +32,8 @@ QUERIES = {
 QRF_DB_KEY = "CA,priority=QRF"
 QRF_JIRA_FILTER = "R3 Dash: Unresolved CA"
 
+KEY_FIELD = "key"
+DRV_FIELD = "customfield_18131"
 
 
 def retrieve_issues(jira, jira_filter, fields, limit=None):
@@ -47,14 +49,13 @@ def retrieve_issues(jira, jira_filter, fields, limit=None):
 
 
 def retrieve_issue_count(jira, jira_filter):
-    issues = retrieve_issues(jira, jira_filter, fields=["key"], limit=1)
+    issues = retrieve_issues(jira, jira_filter, fields=[KEY_FIELD], limit=1)
     return issues.total
 
 
 def retrieve_qrf(jira):
-    issues = retrieve_issues(jira, QRF_JIRA_FILTER,
-                             fields=["customfield_18131"])
-    qrf = sum([issue.fields.customfield_18131 for issue in issues])
+    issues = retrieve_issues(jira, QRF_JIRA_FILTER, fields=[DRV_FIELD])
+    qrf = sum([getattr(issue.fields, DRV_FIELD) for issue in issues])
     return round(qrf, 3)
 
 
