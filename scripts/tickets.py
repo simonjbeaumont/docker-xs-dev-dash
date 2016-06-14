@@ -42,7 +42,7 @@ def retrieve_qrf(jira):
         qrf = sum([issue.fields.customfield_18131 for issue in response])
         return round(qrf, 3)
     except JIRAError as exn:
-        sys.stderr.write("error: Could not retrieve_qrf from JIRA: %s" % exn)
+        sys.stderr.write("error: Connection to JIRA failed: %s\n" % exn)
         exit(3)
 
 
@@ -55,7 +55,7 @@ def retrieve_counts(jira):
                                           json_result=True)
             counts[name] = response['total']
     except JIRAError as exn:
-        sys.stderr.write("error: Could not retrieve_counts from JIRA: %s" % exn)
+        sys.stderr.write("error: Connection to JIRA failed: %s\n" % exn)
         exit(3)
     return counts
 
