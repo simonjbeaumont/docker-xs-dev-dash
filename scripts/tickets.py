@@ -33,31 +33,29 @@ QRF_DB_KEY = "CA,priority=QRF"
 QRF_JIRA_FILTER = "R3 Dash: Unresolved CA"
 
 
+
+def retrieve_issues(jira, jira_filter, fields, limit=None):
+    try:
+        jql = "filter='%s'" % jira_filter
+        max_results = False if limit is None else limit
+        if isinstance(fields, list):
+            fields = ",".join(fields)
+        return jira.search_issues(jql, maxResults=max_results, fields=fields)
+    except JIRAError as exn:
+        sys.stderr.write("error: Connection to JIRA failed: %s\n" % exn)
+        exit(3)
+
+
+def retrieve_issue_count(jira, jira_filter):
+    issues = retrieve_issues(jira, jira_filter, fields=["key"], limit=1)
+    return issues.total
+
+
 def retrieve_qrf(jira):
-    try:
-        jql = "filter='%s'" % QRF_JIRA_FILTER
-        # The field DRV is custom and has custom field ID 18131 (urgh)
-        response = jira.search_issues(jql, maxResults=False,
-                                      fields="customfield_18131")
-        qrf = sum([issue.fields.customfield_18131 for issue in response])
-        return round(qrf, 3)
-    except JIRAError as exn:
-        sys.stderr.write("error: Connection to JIRA failed: %s\n" % exn)
-        exit(3)
-
-
-def retrieve_counts(jira):
-    counts = {}
-    try:
-        for (name, jira_filter) in QUERIES.iteritems():
-            jql = "filter='%s'" % jira_filter
-            response = jira.search_issues(jql, maxResults=1, fields='key',
-                                          json_result=True)
-            counts[name] = response['total']
-    except JIRAError as exn:
-        sys.stderr.write("error: Connection to JIRA failed: %s\n" % exn)
-        exit(3)
-    return counts
+    issues = retrieve_issues(jira, QRF_JIRA_FILTER,
+                             fields=["customfield_18131"])
+    qrf = sum([issue.fields.customfield_18131 for issue in issues])
+    return round(qrf, 3)
 
 
 def parse_args_or_exit(argv=None):
@@ -70,7 +68,9 @@ def parse_args_or_exit(argv=None):
 def main():
     args = parse_args_or_exit(sys.argv[1:])
     jira = JIRA({"server": JIRA_ENDPOINT})
-    ticket_counts = retrieve_counts(jira)
+    ticket_counts = {}
+    for (db_key, jira_filter) in QUERIES.iteritems():
+        ticket_counts[db_key] = retrieve_issue_count(jira, jira_filter)
     ticket_counts[QRF_DB_KEY] = retrieve_qrf(jira)
     if args.dry_run:
         print "Retrieved the following counts: %s" % ticket_counts
