@@ -1126,6 +1126,145 @@
       "editable": true
     },
     {
+      "collapse": false,
+      "editable": true,
+      "height": "25px",
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "decimals": 1,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 20,
+          "interval": ">12h",
+          "links": [
+            {
+              "params": "filter=50375",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "70%",
+          "prefix": "SPRINT BURNDOWN:",
+          "prefixFontSize": "70%",
+          "span": 6,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "sprint_burndown",
+              "query": "SELECT last(value) FROM \"sprint_burndown\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,8,15",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 21,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=50374",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "70%",
+          "prefix": "GROOMED BACKLOG:",
+          "prefixFontSize": "70%",
+          "span": 6,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "none",
+              "groupByTags": [],
+              "measurement": "backlog_depth",
+              "query": "SELECT last(value) FROM \"backlog_depth\" WHERE $timeFilter GROUP BY time($interval) fill(none)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "100%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "title": "Sprint metrics"
+    },
+    {
       "collapse": true,
       "editable": true,
       "height": "350px",
