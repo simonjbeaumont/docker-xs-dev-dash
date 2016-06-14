@@ -45,4 +45,4 @@ check:
 	fi
 	@touch $@
 
-.PHONY: build clean run shell data purge check
+.PHONY: build clean stop run shell data purge check
