@@ -53,9 +53,13 @@ def retrieve_issue_count(jira, jira_filter):
     return issues.total
 
 
+def retrieve_sum_of_field(jira, jira_filter, field):
+    issues = retrieve_issues(jira, jira_filter, fields=[field])
+    return sum([getattr(issue.fields, field) for issue in issues])
+
+
 def retrieve_qrf(jira):
-    issues = retrieve_issues(jira, QRF_JIRA_FILTER, fields=[DRV_FIELD])
-    qrf = sum([getattr(issue.fields, DRV_FIELD) for issue in issues])
+    qrf = retrieve_sum_of_field(jira, QRF_JIRA_FILTER, DRV_FIELD)
     return round(qrf, 3)
 
 
