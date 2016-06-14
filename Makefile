@@ -32,8 +32,8 @@ purge: stop
 	fi
 
 check:
-	pep8 --show-source --show-pep8 scripts/*.py
-	pylint scripts/*.py
+	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pep8 --show-source --show-pep8 /host/scripts/*.py"
+	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pylint scripts/*.py"
 
 .gh-token:
 	@if [ ! -s $@ ]; then \

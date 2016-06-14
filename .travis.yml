@@ -1,7 +1,5 @@
 language: python
 services: docker
-install:
-  - pip install pep8 pylint
 script:
   - touch .gh-token
   - make check

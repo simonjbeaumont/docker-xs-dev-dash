@@ -10,6 +10,7 @@ RUN dnf install -qy supervisor
 RUN dnf install -qy cronie
 RUN dnf install -qy nmap-ncat
 RUN pip install -q requests jira
+RUN pip install -q pep8 pylint
 
 # influxdb
 ADD ./influxdb/init.sh /init-influxdb.sh
