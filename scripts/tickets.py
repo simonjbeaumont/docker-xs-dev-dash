@@ -69,17 +69,17 @@ def parse_args_or_exit(argv=None):
 def main():
     args = parse_args_or_exit(sys.argv[1:])
     jira = JIRA({"server": JIRA_ENDPOINT})
-    ticket_counts = {}
+    values = {}
     for (db_key, jira_filter) in QUERIES.iteritems():
-        ticket_counts[db_key] = retrieve_issue_count(jira, jira_filter)
-    ticket_counts[QRF_DB_KEY] = retrieve_qrf(jira)
+        values[db_key] = retrieve_issue_count(jira, jira_filter)
+    values[QRF_DB_KEY] = retrieve_qrf(jira)
     if args.dry_run:
-        print "Retrieved the following counts: %s" % ticket_counts
+        print "Retrieved the following values: %s" % values
         exit(0)
     # use same timestamp for all database writes for consistent key
     tstamp = int(time.time()) * 10**9
-    for (key, count) in ticket_counts.iteritems():
-        db_write(DB_URI, key, count, tstamp)
+    for (key, value) in values.iteritems():
+        db_write(DB_URI, key, value, tstamp)
 
 if __name__ == "__main__":
     main()
