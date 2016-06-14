@@ -12,7 +12,7 @@ DB_URI = "http://localhost:8086/write?db=inforad"
 
 JIRA_ENDPOINT = "https://issues.citrite.net"
 
-QUERIES = {
+COUNT_QUERIES = {
     "dc_inbox": "R3 Dash: DC Inbox",
     "CA,priority=Blocker": "R3 Dash: CA Blocker",
     "CA,priority=Critical": "R3 Dash: CA Critical",
@@ -70,7 +70,7 @@ def main():
     args = parse_args_or_exit(sys.argv[1:])
     jira = JIRA({"server": JIRA_ENDPOINT})
     values = {}
-    for (db_key, jira_filter) in QUERIES.iteritems():
+    for (db_key, jira_filter) in COUNT_QUERIES.iteritems():
         values[db_key] = retrieve_issue_count(jira, jira_filter)
     values[QRF_DB_KEY] = retrieve_qrf(jira)
     if args.dry_run:
