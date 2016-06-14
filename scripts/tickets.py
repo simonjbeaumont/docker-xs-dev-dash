@@ -32,8 +32,12 @@ COUNT_QUERIES = {
 QRF_DB_KEY = "CA,priority=QRF"
 QRF_JIRA_FILTER = "R3 Dash: Unresolved CA"
 
+BACKLOG_DEPTH_DB_KEY = "backlog_depth"
+BACKLOG_DEPTH_JIRA_FILTER = "R3 Dash: Groomed Backlog"
+
 KEY_FIELD = "key"
 DRV_FIELD = "customfield_18131"
+STORY_POINTS_FIELD = "customfield_11332"
 
 
 def retrieve_issues(jira, jira_filter, fields, limit=None):
@@ -64,6 +68,11 @@ def retrieve_qrf(jira):
     return round(qrf, 3)
 
 
+def retrieve_backlog_depth(jira):
+    return retrieve_sum_of_field(jira, BACKLOG_DEPTH_JIRA_FILTER,
+                                 STORY_POINTS_FIELD)
+
+
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get number of open ring3 tickets and add to dashboard DB')
@@ -78,6 +87,7 @@ def main():
     for (db_key, jira_filter) in COUNT_QUERIES.iteritems():
         values[db_key] = retrieve_issue_count(jira, jira_filter)
     values[QRF_DB_KEY] = retrieve_qrf(jira)
+    values[BACKLOG_DEPTH_DB_KEY] = retrieve_backlog_depth(jira)
     if args.dry_run:
         print "Retrieved the following values: %s" % values
         exit(0)
