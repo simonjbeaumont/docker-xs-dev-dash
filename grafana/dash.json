@@ -1398,7 +1398,7 @@
   ],
   "nav": [
     {
-      "collapse": false,
+      "collapse": true,
       "enable": true,
       "notice": false,
       "now": true,
