@@ -55,7 +55,8 @@ def retrieve_issue_count(jira, jira_filter):
 
 def retrieve_sum_of_field(jira, jira_filter, field):
     issues = retrieve_issues(jira, jira_filter, fields=[field])
-    return sum([getattr(issue.fields, field) for issue in issues])
+    fields = [getattr(issue.fields, field) for issue in issues]
+    return sum([f for f in fields if f is not None])
 
 
 def retrieve_qrf(jira):
