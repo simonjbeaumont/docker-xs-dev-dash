@@ -31,6 +31,10 @@ purge: stop
 		docker rm -f $(DATA_CON) 2>/dev/null || true; \
 	fi
 
+check:
+	pep8 --show-source --show-pep8 scripts/*.py
+	pylint scripts/*.py
+
 .gh-token:
 	@if [ ! -s $@ ]; then \
 		read -n1 -r -p "$@ does not exist, create dummy token? "; echo; \
@@ -41,4 +45,4 @@ purge: stop
 	fi
 	@touch $@
 
-.PHONY: build clean run shell data purge
+.PHONY: build clean run shell data purge check
