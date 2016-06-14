@@ -35,6 +35,9 @@ QRF_JIRA_FILTER = "R3 Dash: Unresolved CA"
 BACKLOG_DEPTH_DB_KEY = "backlog_depth"
 BACKLOG_DEPTH_JIRA_FILTER = "R3 Dash: Groomed Backlog"
 
+SPRINT_BURNDOWN_DB_KEY = "sprint_burndown"
+SPRINT_BURNDOWN_JIRA_FILTER = "R3 Dash: Sprint Burndown"
+
 KEY_FIELD = "key"
 DRV_FIELD = "customfield_18131"
 STORY_POINTS_FIELD = "customfield_11332"
@@ -73,6 +76,11 @@ def retrieve_backlog_depth(jira):
                                  STORY_POINTS_FIELD)
 
 
+def retrieve_sprint_burndown(jira):
+    return retrieve_sum_of_field(jira, SPRINT_BURNDOWN_JIRA_FILTER,
+                                 STORY_POINTS_FIELD)
+
+
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get number of open ring3 tickets and add to dashboard DB')
@@ -88,6 +96,7 @@ def main():
         values[db_key] = retrieve_issue_count(jira, jira_filter)
     values[QRF_DB_KEY] = retrieve_qrf(jira)
     values[BACKLOG_DEPTH_DB_KEY] = retrieve_backlog_depth(jira)
+    values[SPRINT_BURNDOWN_DB_KEY] = retrieve_sprint_burndown(jira)
     if args.dry_run:
         print "Retrieved the following values: %s" % values
         exit(0)
