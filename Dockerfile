@@ -9,8 +9,11 @@ RUN dnf install -qy nginx
 RUN dnf install -qy supervisor
 RUN dnf install -qy cronie
 RUN dnf install -qy nmap-ncat
-RUN pip install -q requests jira
-RUN pip install -q pep8 pylint demjson
+RUN pip install -q requests
+RUN pip install -q jira
+RUN pip install -q pep8
+RUN pip install -q pylint
+RUN pip install -q demjson
 
 # influxdb
 ADD ./influxdb/init.sh /init-influxdb.sh
