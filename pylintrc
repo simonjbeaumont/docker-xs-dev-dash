@@ -1,5 +1,5 @@
 [MESSAGES CONTROL]
-disable=missing-docstring
+disable=missing-docstring,locally-disabled
 
 [REPORTS]
 output-format=text

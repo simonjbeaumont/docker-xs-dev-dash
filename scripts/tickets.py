@@ -3,6 +3,7 @@
 import sys
 import time
 import argparse
+import getpass
 from jira import JIRA, JIRAError
 
 from common import db_write
@@ -84,13 +85,31 @@ def retrieve_sprint_burndown(jira):
 def parse_args_or_exit(argv=None):
     parser = argparse.ArgumentParser(
         description='Get number of open ring3 tickets and add to dashboard DB')
+    parser.add_argument('-u', '--user',
+                        help='Authenticate with JIRA using this user')
     add_common_parser_args(parser)
     return parser.parse_args(argv)
 
 
+def jira_login(endpoint, user=None):
+    basic_auth = None
+    if user:
+        if sys.stdin.isatty():
+            password = getpass.getpass(stream=sys.stderr)
+        else:
+            password = sys.stdin.readline().rstrip()
+        basic_auth = (user, password)
+    jira = JIRA(server=endpoint, basic_auth=basic_auth)
+    # pylint: disable=protected-access
+    if "JSESSIONID" in jira._session.cookies:
+        # drop basic auth if we have a cookie (for performance)
+        jira._session.auth = None
+    return jira
+
+
 def main():
     args = parse_args_or_exit(sys.argv[1:])
-    jira = JIRA({"server": JIRA_ENDPOINT})
+    jira = jira_login(JIRA_ENDPOINT, args.user)
     values = {}
     for (db_key, jira_filter) in COUNT_QUERIES.iteritems():
         values[db_key] = retrieve_issue_count(jira, jira_filter)
