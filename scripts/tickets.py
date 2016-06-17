@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import re
 import sys
 import time
 import argparse
@@ -39,6 +40,10 @@ BACKLOG_DEPTH_JIRA_FILTER = "R3 Dash: Groomed Backlog"
 
 SPRINT_BURNDOWN_DB_KEY = "sprint_burndown"
 SPRINT_BURNDOWN_JIRA_FILTER = "R3 Dash: Sprint Burndown"
+
+SPRINT_VELOCITY_DB_KEY = "sprint_velocity"
+SPRINT_BOARD_ID = 70
+SPRINT_REGEX = "^xs-ring3.*"
 
 KEY_FIELD = "key"
 DRV_FIELD = "customfield_18131"
@@ -81,6 +86,23 @@ def retrieve_backlog_depth(jira):
 def retrieve_sprint_burndown(jira):
     return retrieve_sum_of_field(jira, SPRINT_BURNDOWN_JIRA_FILTER,
                                  STORY_POINTS_FIELD)
+
+
+def retrieve_sprint_velocity(jira, board_id, sprint_regex=None, window=3):
+    try:
+        sprints = jira.sprints(board_id)
+        if sprint_regex:
+            sprints = [s for s in sprints if re.match(sprint_regex, s.name)]
+        completed = [s for s in sprints if s.state == 'CLOSED']
+        latest_completed = sorted(completed, key=id, reverse=True)[0:window]
+        vels = [jira.completedIssuesEstimateSum(board_id, s.id)
+                for s in latest_completed]
+        avg_v = float(sum(vels))/len(vels) if vels else float('nan')
+        return round(avg_v, 1)
+    except JIRAError as exn:
+        if exn.status_code == 403:
+            sys.stderr.write("warn: Auth error in retrieve_sprint_velocity\n")
+            return "AUTH_ERROR"
 
 
 def parse_args_or_exit(argv=None):
@@ -128,6 +150,8 @@ def main():
     values[QRF_DB_KEY] = retrieve_qrf(jira)
     values[BACKLOG_DEPTH_DB_KEY] = retrieve_backlog_depth(jira)
     values[SPRINT_BURNDOWN_DB_KEY] = retrieve_sprint_burndown(jira)
+    values[SPRINT_VELOCITY_DB_KEY] = retrieve_sprint_velocity(
+        jira, SPRINT_BOARD_ID, SPRINT_REGEX, 3)
     if args.dry_run:
         print "---\nRetrieved the following values: %s" % values
         exit(0)
