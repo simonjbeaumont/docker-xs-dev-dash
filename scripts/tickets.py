@@ -129,7 +129,7 @@ def main():
     values[BACKLOG_DEPTH_DB_KEY] = retrieve_backlog_depth(jira)
     values[SPRINT_BURNDOWN_DB_KEY] = retrieve_sprint_burndown(jira)
     if args.dry_run:
-        print "Retrieved the following values: %s" % values
+        print "---\nRetrieved the following values: %s" % values
         exit(0)
     # use same timestamp for all database writes for consistent key
     tstamp = int(time.time()) * 10**9
