@@ -2,6 +2,7 @@ language: python
 services: docker
 script:
   - touch scripts/.gh-token
+  - touch scripts/.jira-pw
   - make check
   - make run
   - make stop
