@@ -4,6 +4,7 @@ import sys
 import time
 import argparse
 import getpass
+import logging
 from jira import JIRA, JIRAError
 
 from common import db_write
@@ -92,23 +93,34 @@ def parse_args_or_exit(argv=None):
 
 
 def jira_login(endpoint, user=None):
-    basic_auth = None
-    if user:
-        if sys.stdin.isatty():
-            password = getpass.getpass(stream=sys.stderr)
-        else:
-            password = sys.stdin.readline().rstrip()
-        basic_auth = (user, password)
-    jira = JIRA(server=endpoint, basic_auth=basic_auth)
-    # pylint: disable=protected-access
-    if "JSESSIONID" in jira._session.cookies:
-        # drop basic auth if we have a cookie (for performance)
-        jira._session.auth = None
-    return jira
+    try:
+        basic_auth = None
+        if user:
+            if sys.stdin.isatty():
+                password = getpass.getpass(stream=sys.stderr)
+            else:
+                password = sys.stdin.readline().rstrip()
+            basic_auth = (user, password)
+        try:
+            jira = JIRA(server=endpoint, basic_auth=basic_auth)
+        except JIRAError:
+            sys.stderr.write("warn: Autentication to JIRA failed," +
+                             " continuing unauthenticated\n")
+            jira = JIRA(server=endpoint)
+        # pylint: disable=protected-access
+        if "JSESSIONID" in jira._session.cookies:
+            # drop basic auth if we have a cookie (for performance)
+            jira._session.auth = None
+        return jira
+    except JIRAError as exn:
+        sys.stderr.write("Connection to JIRA failed: %s: %s\n" %
+                         (exn.response.status_code, exn.response.reason))
+        exit(4)
 
 
 def main():
     args = parse_args_or_exit(sys.argv[1:])
+    logging.captureWarnings(True)
     jira = jira_login(JIRA_ENDPOINT, args.user)
     values = {}
     for (db_key, jira_filter) in COUNT_QUERIES.iteritems():
