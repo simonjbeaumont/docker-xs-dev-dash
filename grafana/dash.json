@@ -1159,7 +1159,7 @@
           "nullText": null,
           "postfix": "",
           "postfixFontSize": "70%",
-          "prefix": "SPRINT BURNDOWN:",
+          "prefix": "SPRINT REMAINING:",
           "prefixFontSize": "70%",
           "span": 4,
           "sparkline": {
