@@ -1,3 +1,4 @@
 *.pyc
 .ropeproject
 .gh-token
+.jira-pw

@@ -1,4 +1,4 @@
 * * * * * root date > /cron-stamp
 * * * * * root GH_TOKEN=$(cat /scripts/.gh-token) timeout 30 python /scripts/github.py
-* * * * * root timeout 30 python /scripts/tickets.py
+* * * * * root timeout 30 cat /scripts/.jira-pw | python /scripts/tickets.py -u svcacct_ring3
 * * * * * root timeout 30 python /scripts/bvt.py

@@ -5,7 +5,7 @@ PORTS+=-p 80:80
 VOLUMES+=--volumes-from $(DATA_CON) -v /etc/localtime:/etc/localtime:ro
 DEV_VOL=-v $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))):/host
 
-build: . scripts/.gh-token
+build: . scripts/.gh-token scripts/.jira-pw
 	docker build -t $(IMG_NAME) .
 
 clean:
@@ -36,7 +36,7 @@ check: build
 	docker run --rm -it $(DEV_VOL) $(IMG_NAME) bash -c "cd /host; pylint scripts/*.py"
 	docker run --rm -it $(DEV_VOL) $(IMG_NAME) jsonlint /host/grafana/dash.json
 
-scripts/.gh-token:
+scripts/.gh-token scripts/.jira-pw:
 	@if [ ! -s $@ ]; then \
 		read -n1 -r -p "$@ does not exist, create dummy token? "; echo; \
 		if [ "$$REPLY" != "y" ]; then \
