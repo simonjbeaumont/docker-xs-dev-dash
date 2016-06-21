@@ -45,15 +45,29 @@ The python scripts all supprt a `--dry-run` (or `-n`) option so that you can
 try them out. If you are developing outside the container you will want to
 install the python packages that the scripts use on your host (see the `pip
 install` command in the Dockerfile). However, it's recommended to do your
-development _inside_ the container. To enter the container use:
+development _inside_ the container. To enter the container use which will drop
+you into a container with all of the services running:
 
 ```sh
 make shell
+...
+[root@7a738bbd4269 /]# ps ax
+  PID TTY      STAT   TIME COMMAND
+    1 ?        Ss+    0:00 /usr/bin/python /usr/bin/supervisord -c /etc/supervisord.d/supervisord.conf
+   30 ?        Sl     0:00 /opt/influxdb/influxd -pidfile=/var/run/influxdb/influxd.pid -config=/etc/opt/influxdb/influxdb.conf
+   31 ?        Sl     0:00 /usr/sbin/grafana-server --homepath=/usr/share/grafana --config=/etc/grafana/grafana.ini cfg:default.paths.data=/var/lib/grafana cfg:default.paths.logs
+   32 ?        S      0:00 nginx: master process /usr/sbin/nginx
+   33 ?        S      0:00 /usr/sbin/crond -n -p -m off
+   46 ?        S      0:00 nginx: worker process
 ```
 
-This will drop you into the container with none of the services running. If you
-want them running you can execute `supervisord` as in the Dockerfile. It also
-mounts the repo inside the container.
+The [cron][6] jobs log both stdout and stderr of their last run to files in the
+root directory:
+
+```sh
+[root@7a738bbd4269 /]# cat /cron-stamp
+Tue Jun 21 14:00:01 BST 2016
+```
 
 If you want to expose the InfluxDB ports then you can do so as follows:
 
@@ -85,6 +99,7 @@ dashboard then there are some instructions in [INSTALL.md][5].
 [3]: https://docker.com
 [4]: #github-authentication
 [5]: INSTALL.md
+[6]: crontab-entries
 
 [travis-badge]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash.svg?branch=master
 [travis-url]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash
