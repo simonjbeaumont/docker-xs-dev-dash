@@ -18,8 +18,8 @@ stop:
 run: build data stop
 	docker run --name=$(DASH_CON) -d -ti $(VOLUMES) $(PORTS) $(IMG_NAME)
 
-shell: build data stop
-	docker run --name=$(DASH_CON) --rm -ti $(VOLUMES) $(PORTS) $(DEV_VOL) $(IMG_NAME) /bin/bash
+shell: run
+	docker exec -it `docker ps -q -f name=$(DASH_CON)` /bin/bash
 
 data: build
 	docker run --name=$(DATA_CON) -ti $(IMG_NAME) true 2>/dev/null || true
