@@ -1199,11 +1199,11 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
-            "rgba(50, 172, 45, 0.97)",
+            "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
+            "rgba(50, 172, 45, 0.97)"
           ],
           "editable": true,
           "error": false,
@@ -1248,7 +1248,7 @@
               "tags": []
             }
           ],
-          "thresholds": "0,1,3",
+          "thresholds": "0,15,30",
           "title": "",
           "type": "singlestat",
           "valueFontSize": "100%",
