@@ -6,7 +6,8 @@ import time
 import argparse
 import getpass
 import logging
-from jira import JIRA, JIRAError
+from jira import JIRAError
+from jira.client import GreenHopper
 
 from common import db_write
 from common import add_common_parser_args
@@ -124,11 +125,11 @@ def jira_login(endpoint, user=None):
                 password = sys.stdin.readline().rstrip()
             basic_auth = (user, password)
         try:
-            jira = JIRA(server=endpoint, basic_auth=basic_auth)
+            jira = GreenHopper({'server': endpoint}, basic_auth=basic_auth)
         except JIRAError:
             sys.stderr.write("warn: Autentication to JIRA failed," +
                              " continuing unauthenticated\n")
-            jira = JIRA(server=endpoint)
+            jira = GreenHopper({'server': endpoint})
         # pylint: disable=protected-access
         if "JSESSIONID" in jira._session.cookies:
             # drop basic auth if we have a cookie (for performance)
