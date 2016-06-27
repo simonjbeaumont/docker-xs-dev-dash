@@ -95,7 +95,12 @@ def retrieve_sprint_velocity(jira, board_id, sprint_regex=None, window=3):
         if sprint_regex:
             sprints = [s for s in sprints if re.match(sprint_regex, s.name)]
         completed = [s for s in sprints if s.state == 'CLOSED']
-        latest_completed = sorted(completed, key=id, reverse=True)[0:window]
+
+        def id_of_sprint(sprint):
+            return sprint.id
+
+        latest_completed = sorted(completed, key=id_of_sprint,
+                                  reverse=True)[0:window]
         vels = [jira.completedIssuesEstimateSum(board_id, s.id)
                 for s in latest_completed]
         avg_v = float(sum(vels))/len(vels) if vels else float('nan')
