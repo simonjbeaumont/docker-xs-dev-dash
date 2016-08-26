@@ -16,7 +16,7 @@ RUN dnf install -qy \
  && dnf clean all \
  && pip install --no-cache-dir -q \
        requests \
-       jira \
+       jira==1.0.3 \
        pep8 \
        pylint \
        demjson
