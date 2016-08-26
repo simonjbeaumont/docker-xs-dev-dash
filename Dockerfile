@@ -1,10 +1,14 @@
 FROM fedora:23
 MAINTAINER Si Beaumont <simon.beaumont@citrix.com>
 
+# Update in a separate layer to minimize churn in the base image.
+# Clean up afterwards to reduce image size.
+RUN dnf update -qy \
+ && dnf clean all
+
 # Install base dependencies in one layer and clean up afterwards to
 # reduce image size
-RUN dnf update -qy \
- && dnf install -qy \
+RUN dnf install -qy \
        nginx \
        supervisor \
        cronie \
