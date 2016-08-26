@@ -44,7 +44,7 @@ SPRINT_BURNDOWN_JIRA_FILTER = "R3 Dash: Sprint Burndown"
 
 SPRINT_VELOCITY_DB_KEY = "sprint_velocity"
 SPRINT_BOARD_ID = 70
-SPRINT_REGEX = "^xs-ring3.*"
+SPRINT_REGEX = r"^xs-ring3\s.+"
 
 KEY_FIELD = "key"
 DRV_FIELD = "customfield_18131"
