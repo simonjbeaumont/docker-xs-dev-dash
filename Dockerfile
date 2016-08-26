@@ -3,8 +3,8 @@ MAINTAINER Si Beaumont <simon.beaumont@citrix.com>
 
 # Install base dependencies in one layer and clean up afterwards to
 # reduce image size
-RUN dnf update -y \
- && dnf install -y \
+RUN dnf update -qy \
+ && dnf install -qy \
        nginx \
        supervisor \
        cronie \
@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir -q \
 
 # Install influxdb and grafana in a separate layer so they can be upgraded
 # without rebuilding the preceding layers.
-RUN dnf install -y \
+RUN dnf install -qy \
        https://s3.amazonaws.com/influxdb/influxdb-0.9.4-1.x86_64.rpm \
        https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x86_64.rpm \
  && dnf clean all
