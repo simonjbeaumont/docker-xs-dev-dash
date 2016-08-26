@@ -36,6 +36,7 @@ ADDITIONAL_REPOS = [
     "xenserver/xs-pull-request-build-scripts",
     "xenserver/xen-api-libs",
     "xenserver/filesystem-summarise",
+    "xenserver/rrd2csv",
 ]
 
 
