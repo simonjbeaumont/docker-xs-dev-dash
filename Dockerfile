@@ -13,9 +13,8 @@ RUN dnf install -qy \
        supervisor \
        cronie \
        nmap-ncat \
- && dnf clean all
-
-RUN pip install --no-cache-dir -q \
+ && dnf clean all \
+ && pip install --no-cache-dir -q \
        requests \
        jira \
        pep8 \
