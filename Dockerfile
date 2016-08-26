@@ -1,19 +1,29 @@
 FROM fedora:23
 MAINTAINER Si Beaumont <simon.beaumont@citrix.com>
 
-# package installation
-RUN dnf update -qy
-RUN dnf install -qy https://s3.amazonaws.com/influxdb/influxdb-0.9.4-1.x86_64.rpm
-RUN dnf install -qy https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x86_64.rpm
-RUN dnf install -qy nginx
-RUN dnf install -qy supervisor
-RUN dnf install -qy cronie
-RUN dnf install -qy nmap-ncat
-RUN pip install -q requests
-RUN pip install -q jira
-RUN pip install -q pep8
-RUN pip install -q pylint
-RUN pip install -q demjson
+# Install base dependencies in one layer and clean up afterwards to
+# reduce image size
+RUN dnf update -y \
+ && dnf install -y \
+       nginx \
+       supervisor \
+       cronie \
+       nmap-ncat \
+ && dnf clean all
+
+RUN pip install --no-cache-dir -q \
+       requests \
+       jira \
+       pep8 \
+       pylint \
+       demjson
+
+# Install influxdb and grafana in a separate layer so they can be upgraded
+# without rebuilding the preceding layers.
+RUN dnf install -y \
+       https://s3.amazonaws.com/influxdb/influxdb-0.9.4-1.x86_64.rpm \
+       https://grafanarel.s3.amazonaws.com/builds/grafana-2.1.3-1.x86_64.rpm \
+ && dnf clean all
 
 # influxdb
 ADD ./influxdb/init.sh /init-influxdb.sh
