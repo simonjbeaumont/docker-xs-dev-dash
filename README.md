@@ -22,7 +22,7 @@ have Docker.
 
 This has now deployed the whole application in a container. It has mapped your
 local port 80 to the container port 80 which is pointing to Grafana. So you
-should be able to open up a broswer and see the dashboard at `localhost`.
+should be able to open up a browser and see the dashboard at `localhost`.
 
 ## Persistent storage
 The Dockerfile and Makefile have been constructed so that a "Data Volume
