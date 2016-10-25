@@ -460,6 +460,71 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "id": 22,
+          "interval": null,
+          "links": [
+            {
+              "params": "filter=52612",
+              "targetBlank": true,
+              "title": "View on JIRA",
+              "type": "absolute",
+              "url": "https://issues.citrite.net/issues/"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "Ely Must Fix",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "fields": [
+                {
+                  "func": "last",
+                  "name": "value"
+                }
+              ],
+              "fill": "null",
+              "groupByTags": [],
+              "measurement": "ElyMustFix",
+              "query": "SELECT last(value) FROM \"ElyMustFix\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "tags": []
+            }
+          ],
+          "thresholds": "0,1,3",
+          "title": "",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "editable": true,
+          "error": false,
+          "format": "none",
           "id": 8,
           "interval": null,
           "links": [
@@ -478,7 +543,7 @@
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -543,7 +608,7 @@
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -608,7 +673,7 @@
           "postfixFontSize": "70%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -992,7 +1057,7 @@
           "span": 4,
           "editable": true,
           "type": "singlestat",
-          "id": 17,
+          "id": 15,
           "links": [
             {
               "params": "q_view=summary&q_product=carbon&q_branch=trunk-ring3",

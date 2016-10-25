@@ -31,6 +31,7 @@ COUNT_QUERIES = {
     "PAR": "R3 Dash: PAR",
     "Hotlist": "R3 Dash: Hotlist",
     "Staging": "R3 Dash: Staging",
+    "ElyMustFix": "R3 Dash: Ely must fix"
 }
 
 QRF_DB_KEY = "CA,priority=QRF"
