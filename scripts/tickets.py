@@ -7,7 +7,7 @@ import argparse
 import getpass
 import logging
 from jira import JIRAError
-from jira.client import GreenHopper
+from jira.client import JIRA
 
 from common import db_write
 from common import add_common_parser_args
@@ -17,31 +17,29 @@ DB_URI = "http://localhost:8086/write?db=inforad"
 JIRA_ENDPOINT = "https://issues.citrite.net"
 
 COUNT_QUERIES = {
-    "dc_inbox": "R3 Dash: DC Inbox",
-    "CA,priority=Blocker": "R3 Dash: CA Blocker",
-    "CA,priority=Critical": "R3 Dash: CA Critical",
-    "CA,priority=Major": "R3 Dash: CA Major",
-    "CA,priority=Minor": "R3 Dash: CA Minor",
-    "CA,priority=Trivial": "R3 Dash: CA Trivial",
-    "CA,priority=Unset": "R3 Dash: CA Unset",
-    "CA,priority=Non-bug": "R3 Dash: CA Non-bug",
-    "CA,priority=Dundee-BCM": "R3 Dash: Dundee BCM",
-    "SCTX": "R3 Dash: SCTX",
-    "XOP": "R3 Dash: XOP",
-    "PAR": "R3 Dash: PAR",
-    "Hotlist": "R3 Dash: Hotlist",
-    "Staging": "R3 Dash: Staging",
-    "ElyMustFix": "R3 Dash: Ely must fix"
+    "dc_inbox": 47168,  # "R3 Dash: DC Inbox",
+    "CA,priority=Blocker":  47165,  # "R3 Dash: CA Blocker"
+    "CA,priority=Critical": 47166,  # "R3 Dash: CA Critical"
+    "CA,priority=Major": 47167,  # "R3 Dash: CA Major"
+    "CA,priority=MinorAndTrivial": 47876,  # "R3 Dash: CA Minor and Trivial"
+    "CA,priority=Non-bug": 48477,  # "R3 Dash: CA Non-Bug",
+    "CA,workflow=Blocked": 52664,  # "R3 Dash: Blocked CA"
+    "SCTX": 47170,  # "R3 Dash: SCTX"
+    "XOP": 47169,  # "R3 Dash: XOP"
+    "PAR": 47171,  # "R3 Dash: PAR"
+    "Hotlist": 47531,  # "R3 Dash Hotlist"
+    "Staging": 48797,  # "R3 Dash Staging"
+    "ElyMustFix": 52612,  # "R3 Dash: Ely must fix"
 }
 
 QRF_DB_KEY = "CA,priority=QRF"
-QRF_JIRA_FILTER = "R3 Dash: Unresolved CA"
+QRF_JIRA_FILTER = 47875  # "R3 Dash: Unresolved CA"
 
 BACKLOG_DEPTH_DB_KEY = "backlog_depth"
-BACKLOG_DEPTH_JIRA_FILTER = "R3 Dash: Groomed Backlog"
+BACKLOG_DEPTH_JIRA_FILTER = 50374  # "R3 Dash: Groomed Backlog"
 
 SPRINT_BURNDOWN_DB_KEY = "sprint_burndown"
-SPRINT_BURNDOWN_JIRA_FILTER = "R3 Dash: Sprint Burndown"
+SPRINT_BURNDOWN_JIRA_FILTER = 50375  # "R3 Dash: Sprint Burndown"
 
 SPRINT_VELOCITY_DB_KEY = "sprint_velocity"
 SPRINT_BOARD_ID = 70
@@ -52,13 +50,13 @@ DRV_FIELD = "customfield_18131"
 STORY_POINTS_FIELD = "customfield_11332"
 
 
-def retrieve_issues(jira, jira_filter, fields, limit=None):
+def retrieve_issues(jira, filter_id, fields, limit=None):
     try:
-        jql = "filter='%s'" % jira_filter
         max_results = False if limit is None else limit
         if isinstance(fields, list):
             fields = ",".join(fields)
-        return jira.search_issues(jql, maxResults=max_results, fields=fields)
+        the_filter = jira.filter(filter_id)
+        return jira.search_issues(getattr(the_filter,'jql'), maxResults=max_results, fields=fields)
     except JIRAError as exn:
         sys.stderr.write("error: Connection to JIRA failed: %s\n" % exn)
         exit(3)
@@ -81,13 +79,12 @@ def retrieve_qrf(jira):
 
 
 def retrieve_backlog_depth(jira):
-    return retrieve_sum_of_field(jira, BACKLOG_DEPTH_JIRA_FILTER,
-                                 STORY_POINTS_FIELD)
+    bd = retrieve_sum_of_field(jira, BACKLOG_DEPTH_JIRA_FILTER, STORY_POINTS_FIELD)
+    return round(bd, 2)
 
 
 def retrieve_sprint_burndown(jira):
-    return retrieve_sum_of_field(jira, SPRINT_BURNDOWN_JIRA_FILTER,
-                                 STORY_POINTS_FIELD)
+    return retrieve_sum_of_field(jira, SPRINT_BURNDOWN_JIRA_FILTER, STORY_POINTS_FIELD)
 
 
 def retrieve_sprint_velocity(jira, board_id, sprint_regex=None, window=3):
@@ -104,7 +101,7 @@ def retrieve_sprint_velocity(jira, board_id, sprint_regex=None, window=3):
                                   reverse=True)[0:window]
         vels = [jira.completedIssuesEstimateSum(board_id, s.id)
                 for s in latest_completed]
-        avg_v = float(sum(vels))/len(vels) if vels else float('nan')
+        avg_v = float(sum(vels)) / len(vels) if vels else float('nan')
         return round(avg_v, 1)
     except JIRAError as exn:
         if exn.status_code == 403:
@@ -131,11 +128,11 @@ def jira_login(endpoint, user=None):
                 password = sys.stdin.readline().rstrip()
             basic_auth = (user, password)
         try:
-            jira = GreenHopper({'server': endpoint}, basic_auth=basic_auth)
+            jira = JIRA({'server': endpoint}, basic_auth=basic_auth)
         except JIRAError:
             sys.stderr.write("warn: Autentication to JIRA failed," +
                              " continuing unauthenticated\n")
-            jira = GreenHopper({'server': endpoint})
+            jira = JIRA({'server': endpoint})
         # pylint: disable=protected-access
         if "JSESSIONID" in jira._session.cookies:
             # drop basic auth if we have a cookie (for performance)
@@ -157,13 +154,13 @@ def main():
     values[QRF_DB_KEY] = retrieve_qrf(jira)
     values[BACKLOG_DEPTH_DB_KEY] = retrieve_backlog_depth(jira)
     values[SPRINT_BURNDOWN_DB_KEY] = retrieve_sprint_burndown(jira)
-    values[SPRINT_VELOCITY_DB_KEY] = retrieve_sprint_velocity(
-        jira, SPRINT_BOARD_ID, SPRINT_REGEX, 3)
+    values[SPRINT_VELOCITY_DB_KEY] = retrieve_sprint_velocity(jira, SPRINT_BOARD_ID, SPRINT_REGEX, 3)
+
     if args.dry_run:
         print "---\nRetrieved the following values: %s" % values
         exit(0)
     # use same timestamp for all database writes for consistent key
-    tstamp = int(time.time()) * 10**9
+    tstamp = int(time.time()) * 10 ** 9
     for (key, value) in values.iteritems():
         db_write(DB_URI, key, value, tstamp)
 
