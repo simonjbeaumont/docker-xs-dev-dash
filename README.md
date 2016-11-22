@@ -101,5 +101,5 @@ dashboard then there are some instructions in [INSTALL.md][5].
 [5]: INSTALL.md
 [6]: crontab-entries
 
-[travis-badge]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash.svg?branch=master
-[travis-url]: https://travis-ci.org/simonjbeaumont/docker-xs-dev-dash
+[travis-badge]: https://travis-ci.org/xenserver/docker-xs-dev-dash.svg?branch=master
+[travis-url]: https://travis-ci.org/xenserver/docker-xs-dev-dash
